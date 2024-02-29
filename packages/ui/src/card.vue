@@ -14,6 +14,8 @@ const props = defineProps<{
     target="_blank"
   >
     <h2>{{ props.title }} <span>-&gt;</span></h2>
-    <p><slot /></p>
+    <p>
+      <slot />
+    </p>
   </a>
 </template>

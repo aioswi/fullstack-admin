@@ -1,5 +1,6 @@
 {
   "name": "with-vue-nuxt",
+  "type": "module",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -8,6 +9,7 @@
   },
   "devDependencies": {
     "@aioswi/tsconfig": "workspace:*",
+    "@antfu/eslint-config": "^2.6.4",
     "eslint": "^8.57.0",
     "turbo": "latest"
   }

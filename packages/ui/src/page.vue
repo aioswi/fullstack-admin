@@ -71,7 +71,11 @@ const LINKS = [
           </div>
 
           <div class="logoGradientContainer">
-            <Gradient class="logoGradient" :conic="true" :small="true" />
+            <Gradient
+              class="logoGradient"
+              :conic="true"
+              :small="true"
+            />
           </div>
 
           <div class="logo">
@@ -84,7 +88,10 @@ const LINKS = [
             >
           </div>
         </div>
-        <Gradient class="backgroundGradient" conic />
+        <Gradient
+          class="backgroundGradient"
+          conic
+        />
         <div class="turborepoWordmarkContainer">
           <svg
             class="turborepoWordmark"
@@ -93,9 +100,7 @@ const LINKS = [
             xmlns="http://www.w3.org/2000/svg"
           >
             <title>Turborepo logo</title>
-            <path
-              d="M53.7187 12.0038V1.05332H0.945312V12.0038H20.8673V48.4175H33.7968V12.0038H53.7187Z"
-            />
+            <path d="M53.7187 12.0038V1.05332H0.945312V12.0038H20.8673V48.4175H33.7968V12.0038H53.7187Z" />
             <path
               d="M83.5362 49.1431C99.764 49.1431 108.67 40.8972 108.67 27.3081V1.05332H95.7401V26.0547C95.7401 33.6409 91.7821 37.9287 83.5362 37.9287C75.2904 37.9287 71.3324 33.6409 71.3324 26.0547V1.05332H58.4029V27.3081C58.4029 40.8972 67.3084 49.1431 83.5362 49.1431Z"
             />
@@ -158,12 +163,10 @@ const LINKS = [
   --card-rgb: 100, 100, 100;
   --card-border-rgb: 200, 200, 200;
 
-  --glow-conic: conic-gradient(
-    from 180deg at 50% 50%,
-    #2a8af6 0deg,
-    #a853ba 180deg,
-    #e92a67 360deg
-  );
+  --glow-conic: conic-gradient(from 180deg at 50% 50%,
+      #2a8af6 0deg,
+      #a853ba 180deg,
+      #e92a67 360deg);
 }
 
 * {
@@ -181,12 +184,9 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
+  background: linear-gradient(to bottom,
       transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
 }
 
 a {
@@ -264,6 +264,7 @@ a {
     padding-top: 4rem;
     padding-bottom: 6rem;
   }
+
   @media (min-width: 1024px) {
     padding-top: 5rem;
     padding-bottom: 8rem;
@@ -372,11 +373,9 @@ a {
     border-radius: 0;
     border: none;
     border-bottom: 1px solid rgba(var(--callout-border-rgb), 0.25);
-    background: linear-gradient(
-      to bottom,
-      rgba(var(--background-start-rgb), 1),
-      rgba(var(--callout-rgb), 0.5)
-    );
+    background: linear-gradient(to bottom,
+        rgba(var(--background-start-rgb), 1),
+        rgba(var(--callout-rgb), 0.5));
     background-clip: padding-box;
     backdrop-filter: blur(24px);
   }
@@ -387,11 +386,9 @@ a {
     inset: auto 0 0;
     padding: 2rem;
     height: 200px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgb(var(--background-end-rgb)) 40%
-    );
+    background: linear-gradient(to bottom,
+        transparent 0%,
+        rgb(var(--background-end-rgb)) 40%);
     z-index: 1;
   }
 }

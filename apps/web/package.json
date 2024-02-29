@@ -1,8 +1,8 @@
 {
   "name": "web",
+  "type": "module",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev --port 3001",
@@ -14,10 +14,7 @@
   "devDependencies": {
     "@aioswi/tsconfig": "workspace:*",
     "@aioswi/ui": "workspace:*",
-    "@antfu/eslint-config": "^2.6.4",
     "@nuxt/devtools": "latest",
-    "@nuxtjs/eslint-config-typescript": "^12.1.0",
-    "eslint": "^8.57.0",
     "nuxt": "^3.10.3",
     "vue": "^3.4.20",
     "vue-router": "^4.3.0"

@@ -4,8 +4,5 @@
   "extends": [
     "./base.json",
     "@vue/tsconfig/tsconfig.dom.json"
-  ],
-  "compilerOptions": {
-    "allowJs": true
-  }
+  ]
 }

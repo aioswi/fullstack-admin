@@ -11,15 +11,14 @@ const props = withDefaults(
 
 <template>
   <span
-    :class="
-      [
-        'gradient',
-        conic ? 'glowConic' : undefined,
-        small ? 'gradientSmall' : 'gradientLarge',
-        props.class,
-      ]
-        .filter(Boolean)
-        .join(' ')
+    :class="[
+      'gradient',
+      conic ? 'glowConic' : undefined,
+      small ? 'gradientSmall' : 'gradientLarge',
+      props.class,
+    ]
+      .filter(Boolean)
+      .join(' ')
     "
   />
 </template>
