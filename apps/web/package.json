@@ -15,7 +15,12 @@
     "@aioswi/tsconfig": "workspace:*",
     "@aioswi/ui": "workspace:*",
     "@nuxt/devtools": "latest",
+    "@nuxtjs/color-mode": "^3.3.2",
+    "@nuxtjs/tailwindcss": "^6.11.4",
+    "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
+    "@pinia/nuxt": "^0.5.1",
     "nuxt": "^3.10.3",
+    "tailwindcss": "^3.4.1",
     "vue": "^3.4.20",
     "vue-router": "^4.3.0"
   }

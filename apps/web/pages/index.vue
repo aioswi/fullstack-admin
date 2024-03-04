@@ -3,7 +3,7 @@ const route = useRoute()
 </script>
 
 <template>
-  <div>
+  <div class="p-4">
     <h1>Nuxt Routing set up successfully!</h1>
     <p>
       Current route: {{ route.path }}
