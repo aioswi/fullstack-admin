@@ -1,5 +1,15 @@
-export default defineStore('counter', () => {
+const useCounterStore = defineStore('counter', () => {
   const count = ref(0)
 
-  return { count }
+  function increment() {
+    count.value++
+  }
+
+  function decrement() {
+    count.value--
+  }
+
+  return { count, increment, decrement }
 })
+
+export { useCounterStore }

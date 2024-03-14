@@ -1,10 +1,15 @@
 <script setup lang="ts">
+import Counter from '~/components/Counter.vue'
+
 const route = useRoute()
 </script>
 
 <template>
   <div class="p-4">
-    <h1>Nuxt Routing set up successfully!</h1>
+    <Counter class="mb-4" />
+    <h1>
+      Nuxt Routing set up successfully!
+    </h1>
     <p>
       Current route: {{ route.path }}
     </p>

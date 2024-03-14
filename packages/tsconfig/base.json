@@ -2,6 +2,12 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "Default",
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "lib": [
+      "dom",
+      "esnext"
+    ],
     "composite": false,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
@@ -15,6 +21,9 @@
     "strictNullChecks": true
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/node_modules",
+    "**/dist",
+    "**/.turbo"
   ]
 }
