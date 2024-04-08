@@ -7,9 +7,9 @@ import kebabCase from 'lodash.kebabcase'
 import mapKeys from 'lodash.mapkeys'
 import Color from 'color'
 
-import type { CiaoUIPluginConfig, ConfigTheme, DefaultThemeType, LayoutTheme } from './types'
+import type { CiaoUIPluginConfig, ConfigTheme, ConfigThemes, DefaultThemeType, LayoutTheme } from './types'
 import { darkLayout, defaultLayout, lightLayout } from './default-layout'
-import { flattenThemeObject, isBaseTheme } from './utils'
+import { flattenThemeObject, generateSpacingScale, isBaseTheme } from './utils'
 import { commonColors, semanticColors } from './colors'
 import { animations } from './animations'
 import { baseStyles } from './utils/classes'
@@ -46,6 +46,7 @@ function resolveConfig(themes: ConfigThemes = {}, defaultTheme: DefaultThemeType
       : {}
 
     const flatColors = flattenThemeObject(colors) as Record<string, string>
+
     const flatLayout = layout ? mapKeys(layout, (value, key) => kebabCase(key)) : {}
 
     // resolved.variants
@@ -70,9 +71,12 @@ function resolveConfig(themes: ConfigThemes = {}, defaultTheme: DefaultThemeType
         const ciaouiColorVariable = `--${prefix}-${colorName}`
         const ciaouiColorOpacityVariable = `--${prefix}-${colorName}-opacity`
 
+        // tailwindcss 配置 设置 css variable 到 "@layer utilities"
         resolved.utilities[cssSelector]![ciaouiColorVariable] = `${h} ${s} ${l}`
+        // 如果存在 alpha 值，保存在 css variable
         if (typeof defaultAlphaValue === 'number')
           resolved.utilities[cssSelector]![ciaouiColorOpacityVariable] = defaultAlphaValue.toFixed(2)
+        // 在 tailwind config 中的 theme.colors 中设置动态颜色
         resolved.colors[colorName] = ({ opacityVariable, opacityValue }) => {
           if (!Number.isNaN(+opacityValue))
             return `hsl(var(${ciaouiColorVariable}) / ${opacityValue})`
@@ -92,6 +96,40 @@ function resolveConfig(themes: ConfigThemes = {}, defaultTheme: DefaultThemeType
     /**
      * Layout
      */
+    for (const [key, value] of Object.entries(flatLayout)) {
+      if (!value)
+        return
+
+      const layoutVariablePrefix = `--${prefix}-${key}`
+
+      if (typeof value === 'object') {
+        for (const [nestedKey, nestedValue] of Object.entries(value)) {
+          const nestedLayoutVariable = `${layoutVariablePrefix}-${nestedKey}`
+
+          resolved.utilities[cssSelector]![nestedLayoutVariable] = nestedValue
+        }
+      }
+      else {
+        if (key === 'spacing-unit') {
+          resolved.utilities[cssSelector]![layoutVariablePrefix] = value
+
+          const spacingScale = generateSpacingScale(Number(value))
+
+          for (const [scaleKey, scaleValue] of Object.entries(spacingScale)) {
+            const spacingVariable = `${layoutVariablePrefix}-${scaleKey}`
+
+            resolved.utilities[cssSelector]![spacingVariable] = scaleValue
+          }
+        }
+        else {
+          const formattedValue = layoutVariablePrefix.includes('opacity') && typeof value === 'number'
+            ? value.toString().replace(/^0\./, '.')
+            : value
+
+          resolved.utilities[cssSelector]![layoutVariablePrefix] = formattedValue
+        }
+      }
+    }
   }
 
   return resolved
@@ -126,9 +164,9 @@ function corePlugin(themes: ConfigThemes = {}, defaultTheme: DefaultThemeType, p
       },
     })
 
-    addUtilities({ ...resolved.utilities, ...utilities })
+    addUtilities({ ...resolved?.utilities, ...utilities })
 
-    resolved.variants.forEach((variant) => {
+    resolved?.variants.forEach((variant) => {
       addVariant(variant.name, variant.definition)
     })
   }, {

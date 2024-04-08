@@ -19,5 +19,19 @@ const route = useRoute()
     >
       Learn more about Nuxt Routing
     </a>
+    <div class="rounded-small border-small p-2 shadow-small">
+      测试 ciao
+    </div>
+    <div class="divide-y mt-2">
+      <div class="">
+        1
+      </div>
+      <div class="">
+        2
+      </div>
+      <div class="">
+        3
+      </div>
+    </div>
   </div>
 </template>

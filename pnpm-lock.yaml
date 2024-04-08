@@ -31,7 +31,7 @@ importers:
     devDependencies:
       '@ciao/theme':
         specifier: workspace:*
-        version: link:../../packages/theme
+        version: link:../../packages/core/theme
       '@ciao/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
@@ -63,7 +63,7 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0(vue@3.4.20)
 
-  packages/theme:
+  packages/core/theme:
     dependencies:
       color:
         specifier: ^4.2.3
@@ -95,7 +95,7 @@ importers:
     devDependencies:
       '@ciao/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../tsconfig
       '@types/color':
         specifier: ^3.0.6
         version: 3.0.6
