@@ -1,3 +1,5 @@
 {
-  "extends": "@ciao/tsconfig/base.json"
+  "extends": "@ciao/tsconfig/base.json",
+  "include": ["packages"],
+  "exclude": ["**/node_modules", "**/dist", "**/.turbo"]
 }
