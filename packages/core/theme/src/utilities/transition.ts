@@ -87,4 +87,3 @@ export default {
     'transition-duration': DEFAULT_TRANSITION_DURATION,
   },
 }
-

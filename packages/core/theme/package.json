@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "author": "devswi <stayfocusjs@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "keywords": [],
   "main": "src/index.ts",
   "files": [

@@ -5,12 +5,14 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.4",
     "@ciao/tsconfig": "workspace:*",
     "eslint": "^8.57.0",
+    "husky": "^9.0.11",
     "rimraf": "^5.0.5",
     "tsup": "^8.0.2",
     "turbo": "latest"

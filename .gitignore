@@ -37,3 +37,5 @@ yarn-error.log*
 # vercel
 .vercel
 .neoconfig.json
+
+*storybook.log
