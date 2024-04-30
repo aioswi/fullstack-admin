@@ -8,7 +8,7 @@ export default antfu({
       'no-undef': 'off',
       'vue/max-attributes-per-line': ['error', {
         singleline: {
-          max: 1,
+          max: 2,
         },
         multiline: {
           max: 1,

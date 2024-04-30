@@ -11,13 +11,8 @@
   ],
   "scripts": {
     "build": "tsup src --dts",
-    "build:fast": "tsup src",
-    "dev": "pnpm build:fast --watch",
     "lint": "eslint src",
-    "clean": "rimraf dist .turbo",
-    "typecheck": "tsc --noEmit",
-    "prepack": "clean-package",
-    "postpack": "clean-package restore"
+    "clean": "rimraf dist .turbo"
   },
   "peerDependencies": {
     "tailwindcss": "*"
@@ -42,15 +37,7 @@
     "@types/lodash.kebabcase": "^4.1.9",
     "@types/lodash.mapkeys": "^4.6.9",
     "@types/lodash.omit": "^4.5.9",
-    "clean-package": "^2.2.0",
-    "tailwindcss": "^3.4.1"
-  },
-  "tsup": {
-    "clean": true,
-    "target": "es2019",
-    "format": [
-      "cjs",
-      "esm"
-    ]
+    "tailwindcss": "^3.4.1",
+    "tsup": "^8.0.2"
   }
 }

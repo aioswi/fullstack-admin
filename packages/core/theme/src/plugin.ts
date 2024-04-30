@@ -47,7 +47,7 @@ function resolveConfig(themes: ConfigThemes = {}, defaultTheme: DefaultThemeType
 
     const flatColors = flattenThemeObject(colors) as Record<string, string>
 
-    const flatLayout = layout ? mapKeys(layout, (value, key) => kebabCase(key)) : {}
+    const flatLayout = layout ? mapKeys(layout, (_value, key) => kebabCase(key)) : {}
 
     // resolved.variants
     resolved.variants.push({

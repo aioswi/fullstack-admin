@@ -7,54 +7,10 @@
   "eslint.experimental.useFlatConfig": true,
   "prettier.enable": false,
   "editor.formatOnSave": false,
-  // Auto fix
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
-  "eslint.rules.customizations": [
-    {
-      "rule": "style/*",
-      "severity": "off"
-    },
-    {
-      "rule": "format/*",
-      "severity": "off"
-    },
-    {
-      "rule": "*-indent",
-      "severity": "off"
-    },
-    {
-      "rule": "*-spacing",
-      "severity": "off"
-    },
-    {
-      "rule": "*-spaces",
-      "severity": "off"
-    },
-    {
-      "rule": "*-order",
-      "severity": "off"
-    },
-    {
-      "rule": "*-dangle",
-      "severity": "off"
-    },
-    {
-      "rule": "*-newline",
-      "severity": "off"
-    },
-    {
-      "rule": "*quotes",
-      "severity": "off"
-    },
-    {
-      "rule": "*semi",
-      "severity": "off"
-    }
-  ],
-  // Enable eslint for all supported languages
   "eslint.validate": [
     "javascript",
     "javascriptreact",
@@ -72,9 +28,5 @@
   ],
   "[vue]": {
     "editor.formatOnSave": false
-  },
-  "cSpell.words": [
-    "Nuxt",
-    "tailwindcss"
-  ]
+  }
 }

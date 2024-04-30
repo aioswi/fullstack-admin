@@ -1,0 +1,26 @@
+{
+  "name": "@ciao/uikit",
+  "version": "1.0.0",
+  "description": "",
+  "author": "devswi <stayfocusjs@gmail.com>",
+  "license": "MIT",
+  "keywords": [],
+  "main": "./src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "vue": ">=3"
+  },
+  "dependencies": {
+    "@ciao/theme": "workspace:^"
+  },
+  "devDependencies": {
+    "@ciao/tsconfig": "workspace:*",
+    "tailwindcss": "^3.4.1"
+  }
+}

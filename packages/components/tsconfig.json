@@ -1,0 +1,12 @@
+{
+  "extends": "@ciao/tsconfig/vue.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist"
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.vue",
+    "src/index.ts"
+  ]
+}

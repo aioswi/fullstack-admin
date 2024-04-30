@@ -23,6 +23,9 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
   ],
+  typescript: {
+    shim: false,
+  },
   colorMode: {
     preference: 'system', // default value of $colorMode.preference
     classSuffix: '',

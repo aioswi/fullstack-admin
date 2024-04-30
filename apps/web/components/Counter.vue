@@ -7,7 +7,7 @@ const { count } = storeToRefs(counter)
 </script>
 
 <template>
-  <div class="flex items-center justify-between">
+  <div class="flex items-center justify-between bg-gray-50">
     Counter: {{ count }}
 
     <div class="flex items-center space-x-2">

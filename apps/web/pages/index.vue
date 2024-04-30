@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Button } from '@ciao/uikit'
 import Counter from '~/components/Counter.vue'
 
 const route = useRoute()
@@ -6,11 +7,11 @@ const route = useRoute()
 
 <template>
   <div class="p-4">
-    <Counter class="mb-4" />
+    <Counter class="mb-4 p-4 border-large rounded-full" />
     <h1>
       Nuxt Routing set up successfully!
     </h1>
-    <p>
+    <p class="font-sans text-2xl font-medium leading-6 py-5">
       Current route: {{ route.path }}
     </p>
     <a
@@ -33,5 +34,6 @@ const route = useRoute()
         3
       </div>
     </div>
+    <!-- <Button /> -->
   </div>
 </template>
