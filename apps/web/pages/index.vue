@@ -34,6 +34,6 @@ const route = useRoute()
         3
       </div>
     </div>
-    <!-- <Button /> -->
+    <Button />
   </div>
 </template>

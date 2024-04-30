@@ -1,6 +1,6 @@
 import type { Config } from 'tailwindcss'
 
-// import { ciaoui } from '@ciao/uikit'
+import { ciaoui } from '@ciao/uikit'
 
 export default <Partial<Config>>{
   content: [
@@ -8,5 +8,5 @@ export default <Partial<Config>>{
     './components/**/*.{js,ts,jsx,tsx}',
   ],
   darkMode: 'class',
-  // plugins: [ciaoui()],
+  plugins: [ciaoui()],
 }
