@@ -1,11 +1,10 @@
 import type { Config } from 'tailwindcss'
-
-import { ciaoui } from '@ciao/uikit'
+import { ciaoui } from '@ciao/theme'
 
 export default <Partial<Config>>{
   content: [
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    './pages/**/*.{js,ts,jsx,tsx,vue}',
+    './components/**/*.{js,ts,jsx,tsx,vue}',
   ],
   darkMode: 'class',
   plugins: [ciaoui()],

@@ -9,7 +9,7 @@ export default defineNuxtConfig({
         {
           hid: 'description',
           name: 'description',
-          content: 'Nuxt + Nestjs + turborepo',
+          content: 'Nuxt + turborepo',
         },
       ],
       link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],

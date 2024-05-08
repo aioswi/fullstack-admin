@@ -4,7 +4,8 @@ const _colorMode = useColorMode()
 
 <template>
   <div>
-    Default Layout
+    <NuxtWelcome />
+    <h1>Vue turbo starter</h1>
     <slot />
   </div>
 </template>
