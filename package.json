@@ -8,7 +8,8 @@
     "lint": "turbo run lint",
     "prepare": "husky",
     "postinstall": "pnpm --filter @ciao/theme build",
-    "test:wtach": "vitest",
+    "test:watch:ui": "vitest --ui",
+    "test:watch": "vitest",
     "test": "vitest run"
   },
   "devDependencies": {

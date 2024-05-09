@@ -1,16 +1,17 @@
 {
   "name": "@ciao/uikit",
+  "type": "module",
   "version": "1.0.0",
   "description": "",
   "author": "devswi <stayfocusjs@gmail.com>",
   "license": "MIT",
   "keywords": [],
-  "main": "./src/index.ts",
+  "main": "./index.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "lint": "eslint src",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
