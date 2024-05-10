@@ -4,9 +4,11 @@ import Button from '../src/button.vue'
 
 describe('button', () => {
   expect(Button).toBeTruthy()
-  const wrapper = mount(Button)
+  const wrapper = mount(Button, {
+    props: {},
+  })
 
   it('default button', () => {
-    expect(wrapper.text()).toBe('This is a button')
+    expect(wrapper.text()).toBe('Button Text')
   })
 })

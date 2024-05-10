@@ -6,6 +6,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
+    "lint:fix": "turbo run lint:fix",
     "prepare": "husky",
     "postinstall": "pnpm --filter @ciao/theme build",
     "test:watch:ui": "vitest --ui",
@@ -13,7 +14,7 @@
     "test": "vitest run"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.16.3",
+    "@antfu/eslint-config": "^2.17.0",
     "@ciao/tsconfig": "workspace:*",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
