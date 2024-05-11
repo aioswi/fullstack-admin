@@ -10,7 +10,12 @@ const commonTheme = {
 }
 
 const parameters: Preview['parameters'] = {
-  layout: 'centered',
+  options: {
+    storySort: {
+      method: 'alphabetical',
+      order: ['Foundations', 'Components'],
+    },
+  },
   controls: {
     matchers: {
       color: /(background|color)$/i,
@@ -42,6 +47,10 @@ const parameters: Preview['parameters'] = {
     },
   },
 }
+
+const _decorators: Preview['decorators'] = [
+
+]
 
 const preview: Preview = {
   parameters,

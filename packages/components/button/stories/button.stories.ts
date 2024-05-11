@@ -3,7 +3,7 @@ import { fn } from '@storybook/test'
 import Button from '../src/button.vue'
 
 const meta = {
-  title: 'Button',
+  title: 'Components/Button',
   component: Button,
   tags: ['autodocs'],
   argTypes: {

@@ -154,6 +154,9 @@ importers:
       '@ciao/tsconfig':
         specifier: workspace:*
         version: link:../../tsconfig
+      '@storybook/vue3':
+        specifier: ^8.0.10
+        version: 8.0.10(vue@3.4.27)
       '@types/color':
         specifier: ^3.0.6
         version: 3.0.6
@@ -181,6 +184,9 @@ importers:
       tsup:
         specifier: ^8.0.2
         version: 8.0.2(postcss@8.4.38)(typescript@5.4.5)
+      vue:
+        specifier: ^3.4.27
+        version: 3.4.27(typescript@5.4.5)
 
   packages/storybook:
     dependencies:

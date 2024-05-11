@@ -1,0 +1,7 @@
+**/.git
+**/node_modules
+**/*.vue
+**/*.ts
+**/*.tsx
+**/*.js
+**/*.mjs

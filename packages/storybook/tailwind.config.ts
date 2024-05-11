@@ -6,6 +6,7 @@ export default <Partial<Config>>{
     './stories/*.mdx',
     '../components/*/src/**/*.{js,jsx,ts,tsx,vue}',
     '../components/*/stories/**/*.{js,jsx,ts,tsx}',
+    '../core/theme/stories/**/*.{js,jsx,ts,tsx,vue}',
   ],
   darkMode: 'class',
   plugins: [ciaoui()],
