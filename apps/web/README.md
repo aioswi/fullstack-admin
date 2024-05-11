@@ -14,12 +14,6 @@ To create [API routes](https://nuxt.com/docs/guide/directory-structure/server), 
 
 > See the guide for more details -> [directory-structure/server](https://nuxt.com/docs/guide/directory-structure/server)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [NuxtJs Official documentation](https://nuxt.com/docs/getting-started/introduction) - learn about Nuxt to create production-grade full-stack web apps and websites features and API.
-
 ## Deploy on Vercel
 
 You can easily deploy your Nuxt app by using the [Vercel Platform](https://vercel.com/new?utm_source=github.com&utm_medium=referral&utm_campaign=turborepo-readme).
