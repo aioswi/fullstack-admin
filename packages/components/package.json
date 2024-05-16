@@ -19,7 +19,8 @@
     "vue": ">=3"
   },
   "dependencies": {
-    "@ciao/theme": "workspace:^"
+    "@ciao/theme": "workspace:^",
+    "@vueuse/core": "^10.9.0"
   },
   "devDependencies": {
     "@ciao/tsconfig": "workspace:*",
@@ -28,6 +29,8 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^24.0.0",
-    "vite": "^5.2.0"
+    "vite": "^5.2.0",
+    "vue": "^3.4.27",
+    "vue-router": "^4.3.2"
   }
 }

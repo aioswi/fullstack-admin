@@ -16,6 +16,13 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
+  // components: [
+  //   {
+  //     path: '../../packages/components',
+  //     pathPrefix: false,
+  //     extensions: ['vue'],
+  //   },
+  // ],
   ssr: true,
   modules: [
     '@nuxtjs/tailwindcss',

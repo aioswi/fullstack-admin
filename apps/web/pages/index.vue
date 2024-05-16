@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { Button } from '@ciao/uikit'
 import Counter from '~/components/Counter.vue'
 
 const route = useRoute()
+
+function handleClick() {
+  console.log('click')
+}
 </script>
 
 <template>
@@ -29,6 +32,5 @@ const route = useRoute()
         3
       </div>
     </div>
-    <Button />
   </div>
 </template>
