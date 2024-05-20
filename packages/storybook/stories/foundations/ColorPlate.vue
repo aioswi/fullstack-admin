@@ -13,7 +13,7 @@ withDefaults(defineProps<ColorPlateProps>(), {
       <h2 class="text-xl font-bold text-foreground">
         {{ title }}
       </h2>
-      <div class="flex flex-wrap gap-x-4 py-4">
+      <div class="flex flex-wrap gap-4 py-4">
         <template v-if="isSemantic">
           <div
             v-for="(c, index) in items"

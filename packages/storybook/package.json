@@ -26,6 +26,7 @@
     "@storybook/vue3-vite": "^8.0.10",
     "@vitejs/plugin-vue": "^5.0.4",
     "autoprefixer": "^10.4.19",
+    "color2k": "^2.0.3",
     "postcss": "^8.4.38",
     "storybook": "^8.0.10",
     "storybook-dark-mode": "^4.0.1",

@@ -3,6 +3,7 @@ import type { PropType } from 'vue'
 import { computed, ref } from 'vue'
 import { button } from '@ciao/theme'
 import { useElementHover, useMousePressed } from '@vueuse/core'
+import Ripple, { useRipple } from '../../ripple'
 import type { ButtonColors, ButtonRadius, ButtonSizes, ButtonVariants } from './button'
 
 const props = defineProps({
@@ -32,6 +33,10 @@ const props = defineProps({
     type: String as PropType<ButtonRadius>,
     default: 'md',
   },
+  rippled: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const emit = defineEmits({
@@ -39,6 +44,8 @@ const emit = defineEmits({
 })
 
 const _ref = ref<HTMLButtonElement>()
+
+const { ripples, onClick: onRippleClick } = useRipple()
 
 const { pressed } = useMousePressed({ target: _ref })
 
@@ -64,6 +71,9 @@ const _props = computed(() => {
 })
 
 function handleClick(evt: MouseEvent) {
+  const { disabled, disableAnimation, rippled } = props
+  if (rippled && !disabled && !disableAnimation)
+    onRippleClick(evt)
   emit('click', evt)
 }
 </script>
@@ -76,5 +86,6 @@ function handleClick(evt: MouseEvent) {
     @click="handleClick"
   >
     <slot>Button</slot>
+    <Ripple v-if="rippled" />
   </button>
 </template>

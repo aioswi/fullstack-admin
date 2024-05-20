@@ -105,12 +105,6 @@ importers:
       '@ciao/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@storybook/test':
-        specifier: ^8.0.10
-        version: 8.0.10(vitest@1.6.0)
-      '@storybook/vue3':
-        specifier: ^8.0.10
-        version: 8.0.10(vue@3.4.27)
       '@vitejs/plugin-vue':
         specifier: ^5.0.4
         version: 5.0.4(vite@5.2.11)(vue@3.4.27)
@@ -169,9 +163,6 @@ importers:
       '@ciao/tsconfig':
         specifier: workspace:*
         version: link:../../tsconfig
-      '@storybook/vue3':
-        specifier: ^8.0.10
-        version: 8.0.10(vue@3.4.27)
       '@types/color':
         specifier: ^3.0.6
         version: 3.0.6
@@ -199,9 +190,6 @@ importers:
       tsup:
         specifier: ^8.0.2
         version: 8.0.2(postcss@8.4.38)(typescript@5.4.5)
-      vue:
-        specifier: ^3.4.27
-        version: 3.4.27(typescript@5.4.5)
 
   packages/storybook:
     dependencies:
@@ -245,6 +233,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
+      color2k:
+        specifier: ^2.0.3
+        version: 2.0.3
       postcss:
         specifier: ^8.4.38
         version: 8.4.38
@@ -4408,7 +4399,7 @@ packages:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.4.27(typescript@5.4.5)
-      vue-component-type-helpers: 2.0.18
+      vue-component-type-helpers: 2.0.19
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -6589,7 +6580,6 @@ packages:
 
   /color2k@2.0.3:
     resolution: {integrity: sha512-zW190nQTIoXcGCaU08DvVNFTmQhUpnJfVuAKfWqUQkflXKpaDdpaYoM0iluLS9lgJNHyBF58KKA2FBEwkD7wog==}
-    dev: false
 
   /color@4.2.3:
     resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
@@ -14114,8 +14104,8 @@ packages:
     resolution: {integrity: sha512-qisL/iAfdO++7w+SsfYQJVPj6QKvxp4i1MMxvsNO41z/8zu3KuAw9LkhKUfP/kcOWGDxESp+pQObWppXusejCA==}
     dev: true
 
-  /vue-component-type-helpers@2.0.18:
-    resolution: {integrity: sha512-zi1QaDBhSb3oeHJh55aTCrosFNKEQsOL9j3XCAjpF9dwxDUUtd85RkJVzO+YpJqy1LNoCWLU8gwuZ7HW2iDN/A==}
+  /vue-component-type-helpers@2.0.19:
+    resolution: {integrity: sha512-cN3f1aTxxKo4lzNeQAkVopswuImUrb5Iurll9Gaw5cqpnbTAxtEMM1mgi6ou4X79OCyqYv1U1mzBHJkzmiK82w==}
     dev: true
 
   /vue-demi@0.14.7(vue@3.4.27):

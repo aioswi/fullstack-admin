@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { commonColors } from '../src/colors'
+import { commonColors } from '@ciao/theme'
 import ColorPlate from './ColorPlate.vue'
 
 const meta = {

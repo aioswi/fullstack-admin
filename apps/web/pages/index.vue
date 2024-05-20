@@ -2,15 +2,17 @@
 import Counter from '~/components/Counter.vue'
 
 const route = useRoute()
-
-function handleClick() {
-  console.log('click')
-}
 </script>
 
 <template>
   <div class="p-4">
     <Counter class="my-4 p-2 border-small rounded-full" />
+    <Button
+      variant="ghost"
+      color="primary"
+    >
+      测试按钮
+    </Button>
     <h1>Nuxt Routing set up successfully!</h1>
     <p class="font-sans text-2xl font-medium leading-6 py-5">
       Current route: {{ route.path }}
