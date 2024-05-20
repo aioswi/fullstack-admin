@@ -4,6 +4,7 @@ import { computed, ref } from 'vue'
 import { button } from '@ciao/theme'
 import { useElementHover, useMousePressed } from '@vueuse/core'
 import Ripple, { useRipple } from '../../ripple'
+import Spinner, { type SpinnerSizes } from '../../spinner'
 import type { ButtonColors, ButtonRadius, ButtonSizes, ButtonVariants } from './button'
 
 const props = defineProps({
@@ -51,14 +52,19 @@ const { pressed } = useMousePressed({ target: _ref })
 
 const hovered = useElementHover(_ref)
 
+const isDisabled = computed(() => {
+  const { disabled, loading } = props
+  return disabled || loading
+})
+
 const styles = computed(() => {
-  const { size, color, variant, disabled, disableAnimation, radius } = props
+  const { size, color, variant, disableAnimation, radius } = props
   return button({
     size,
     color,
     variant,
     radius,
-    disabled,
+    disabled: isDisabled.value,
     disableAnimation,
   })
 })
@@ -66,8 +72,20 @@ const styles = computed(() => {
 const _props = computed(() => {
   return {
     'data-pressed': pressed.value,
-    'data-hover': hovered.value,
+    'data-hover': !isDisabled.value && hovered.value,
+    'ariaDisabled': isDisabled.value,
+    'disabled': isDisabled.value,
   }
+})
+
+const spinnerSize = computed(() => {
+  const { size = 'md' } = props
+  const buttonSpinnerSizeMap: Record<string, SpinnerSizes> = {
+    sm: 'sm',
+    md: 'sm',
+    lg: 'md',
+  }
+  return buttonSpinnerSizeMap[size]
 })
 
 function handleClick(evt: MouseEvent) {
@@ -76,6 +94,11 @@ function handleClick(evt: MouseEvent) {
     onRippleClick(evt)
   emit('click', evt)
 }
+
+defineExpose({
+  /** @description button html element */
+  ref: _ref,
+})
 </script>
 
 <template>
@@ -85,6 +108,11 @@ function handleClick(evt: MouseEvent) {
     v-bind="_props"
     @click="handleClick"
   >
+    <Spinner
+      v-if="loading"
+      color="current"
+      :size="spinnerSize"
+    />
     <slot>Button</slot>
     <Ripple
       v-if="rippled"

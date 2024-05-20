@@ -23,40 +23,22 @@ const emit = defineEmits({
     <span
       v-for="ripple in ripples"
       :key="ripple.key"
-      class="ciao-ripple"
+      class="animate-ripple"
       :style="{
-        'position': 'absolute',
-        'inset': 0,
-        'zIndex': 0,
-        'borderRadius': '100%',
-        'backgroundColor': color,
-        'transformOrigin': 'center',
-        'pointerEvents': 'none',
-        'overflow': 'hidden',
-        'top': `${ripple.y}px`,
-        'left': `${ripple.x}px`,
-        'width': `${ripple.size}px`,
-        'height': `${ripple.size}px`,
-        '--ripple-duration': `${ripple.duration}ms`,
+        position: 'absolute',
+        inset: 0,
+        zIndex: 0,
+        borderRadius: '100%',
+        backgroundColor: color,
+        transformOrigin: 'center',
+        pointerEvents: 'none',
+        overflow: 'hidden',
+        top: `${ripple.y}px`,
+        left: `${ripple.x}px`,
+        width: `${ripple.size}px`,
+        height: `${ripple.size}px`,
       }"
       @animationend="emit('clear', ripple.key)"
     />
   </TransitionGroup>
 </template>
-
-<style lang="css" scoped>
-.ciao-ripple {
-  animation: ripple var(--ripple-duration) ease-out forwards;
-}
-
-@keyframes ripple {
-  0% {
-    transform: scale(0);
-    opacity: 0.35;
-  }
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-</style>

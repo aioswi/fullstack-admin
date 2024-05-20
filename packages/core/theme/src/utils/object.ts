@@ -48,3 +48,33 @@ export function flattenThemeObject<TTarget>(obj: TTarget) {
     }) as object,
   )
 }
+
+export function mapPropsVariants<T extends Record<string, any>, K extends keyof T>(props: T, variantKeys?: K[], removeVariantProps = true) {
+  if (!variantKeys)
+    return [props, {}]
+
+  const picked = variantKeys.reduce((acc, key) => {
+    if (key in props) {
+      return {
+        ...acc,
+        [key]: props[key],
+      }
+    }
+    else {
+      return acc
+    }
+  }, {})
+
+  if (removeVariantProps) {
+    const omitted = Object.keys(props)
+      .filter(key => !variantKeys.includes(key as K))
+      .reduce((acc, key) => ({
+        ...acc,
+        [key]: props[key as keyof T],
+      }), {})
+    return [omitted, picked] as [Omit<T, K>, Pick<T, K>]
+  }
+  else {
+    return [props, picked] as [T, Pick<T, K>]
+  }
+}

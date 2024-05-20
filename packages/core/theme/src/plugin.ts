@@ -180,6 +180,11 @@ function corePlugin(themes: ConfigThemes = {}, defaultTheme: DefaultThemeType, p
           80: '0.8',
           85: '0.85',
         },
+        strokeWidth: {
+          1: '1px',
+          2: '2px',
+          3: '3px',
+        },
         height: {
           divider: `var(--${prefix}-divider-weight)`,
         },

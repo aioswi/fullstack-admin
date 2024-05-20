@@ -52,3 +52,31 @@ export const Default: Story = {
     ...defaultProps,
   },
 }
+
+export const Disabled: Story = {
+  args: {
+    ...defaultProps,
+    disabled: true,
+  },
+}
+
+export const DisableRippled: Story = {
+  args: {
+    ...defaultProps,
+    rippled: false,
+  },
+}
+
+export const DisableAnimation: Story = {
+  args: {
+    ...defaultProps,
+    disableAnimation: true,
+  },
+}
+
+export const Loading: Story = {
+  args: {
+    ...defaultProps,
+    loading: true,
+  },
+}

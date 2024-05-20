@@ -55,7 +55,7 @@ const button = tv({
       full: 'rounded-full',
     },
     disabled: {
-      true: 'opacity-disabled pointer-events-none',
+      true: 'opacity-disabled pointer-events-auto cursor-not-allowed',
     },
     disableAnimation: {
       true: '!transition-none',

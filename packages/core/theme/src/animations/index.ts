@@ -7,6 +7,9 @@ export const animations = {
     'appearance-out': 'appearance-out 60ms ease-in normal both',
     'indeterminate-bar':
       'indeterminate-bar 1.5s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite normal none running',
+    'ripple': 'ripple 0.5s ease-out forwards',
+    'spinner-rotate': 'spinner-rotate 1.28973s linear infinite', // https://codepen.io/shiwei93/pen/NWVxmqG
+    'spinner-dash': 'spinner-dash 2s ease-in-out infinite',
   },
   keyframes: {
     'shimmer': {
@@ -65,6 +68,35 @@ export const animations = {
       },
       '100%': {
         transform: 'translateX(100%) scaleX(1)',
+      },
+    },
+    'ripple': {
+      '0%': {
+        transform: 'scale(0)',
+        opacity: '0.35',
+      },
+      '100%': {
+        transform: 'scale(2)',
+        opacity: '0',
+      },
+    },
+    'spinner-rotate': {
+      '100%': {
+        transform: 'rotate(360deg)',
+      },
+    },
+    'spinner-dash': {
+      '0%': {
+        strokeDasharray: '1, 200',
+        strokeDashoffset: '0',
+      },
+      '50%': {
+        strokeDasharray: '89, 200',
+        strokeDashoffset: '-35px',
+      },
+      '100%': {
+        strokeDasharray: '89, 200',
+        strokeDashoffset: '-124px',
       },
     },
   },

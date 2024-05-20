@@ -12,4 +12,13 @@ describe('button', () => {
 
     expect(() => wrapper.unmount()).not.toThrow()
   })
+
+  it('should trigger click event', async () => {
+    const wrapper = mount(Button, {
+      props: {},
+    })
+    await wrapper.trigger('click')
+
+    expect(wrapper.emitted().click).toBeTruthy()
+  })
 })
