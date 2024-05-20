@@ -1,7 +1,7 @@
 import type { VariantProps } from 'tailwind-variants'
 
 import { tv } from '../utils/tv'
-import { collapseAdjacentVariantBorders, colorVariants, dataFocusVisibleClasses } from '../utils'
+import { colorVariants, dataFocusVisibleClasses } from '../utils'
 
 const button = tv({
   base: [

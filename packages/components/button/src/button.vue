@@ -45,7 +45,7 @@ const emit = defineEmits({
 
 const _ref = ref<HTMLButtonElement>()
 
-const { ripples, onClick: onRippleClick } = useRipple()
+const { ripples, onClick: onRippleClick, onClear: onRippleClear } = useRipple()
 
 const { pressed } = useMousePressed({ target: _ref })
 
@@ -86,6 +86,10 @@ function handleClick(evt: MouseEvent) {
     @click="handleClick"
   >
     <slot>Button</slot>
-    <Ripple v-if="rippled" />
+    <Ripple
+      v-if="rippled"
+      :ripples="ripples"
+      @clear="onRippleClear"
+    />
   </button>
 </template>
