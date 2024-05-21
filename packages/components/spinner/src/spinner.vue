@@ -2,7 +2,7 @@
 import type { PropType } from 'vue'
 import { computed, ref } from 'vue'
 import { spinner } from '@ciao/theme'
-import type { SpinnerColors, SpinnerLabelColors, SpinnerSizes } from './spinner'
+import type { SpinnerColors, SpinnerSizes } from './spinner'
 
 const props = defineProps({
   size: {
@@ -16,15 +16,11 @@ const props = defineProps({
   label: {
     type: String,
   },
-  labelColor: {
-    type: String as PropType<SpinnerLabelColors>,
-    default: 'primary',
-  },
 })
 
 const _ref = ref<HTMLElement>()
 
-const slots = computed(() => spinner(props))
+const styles = computed(() => spinner(props))
 
 defineExpose({
   /** @description html element */
@@ -33,21 +29,21 @@ defineExpose({
 </script>
 
 <template>
-  <div ref="_ref" :class="[slots.base()]">
+  <div ref="_ref" :class="[styles.base()]">
     <svg
-      :class="slots.wrapper()"
+      :class="styles.wrapper()"
       class=""
       viewBox="25 25 50 50"
     >
       <circle
-        :class="[slots.ring()]"
+        :class="[styles.ring()]"
         cx="50"
         cy="50"
         r="20"
         fill="none"
       />
     </svg>
-    <span v-if="$slots.default || label" :class="[slots.label()]">
+    <span v-if="$slots.default || label" :class="[styles.label()]">
       <slot>{{ label }}</slot>
     </span>
   </div>

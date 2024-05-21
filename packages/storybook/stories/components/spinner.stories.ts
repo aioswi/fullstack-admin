@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { spinner } from '@ciao/theme'
 import { Spinner } from '@ciao/uikit'
+import { h } from 'vue'
 
 const meta = {
   title: 'Components/Spinner',
@@ -12,14 +13,10 @@ const meta = {
     },
     color: {
       control: 'select',
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger'],
+      options: ['current', 'default', 'primary', 'secondary', 'success', 'warning', 'danger'],
     },
     label: {
       control: 'text',
-    },
-    labelColor: {
-      control: 'select',
-      options: ['default', 'primary', 'secondary', 'success', 'warning', 'danger'],
     },
   },
 } satisfies Meta<typeof Spinner>
@@ -42,5 +39,12 @@ export const WithLabel: Story = {
   args: {
     ...defaultProps,
     label: 'Loading...',
+  },
+}
+
+export const CustomLabel: Story = {
+  args: {
+    ...defaultProps,
+    default: h('span', { class: 'text-pink-500 italic text-2xl' }, 'I\'m loading'),
   },
 }

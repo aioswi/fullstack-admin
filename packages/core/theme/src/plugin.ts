@@ -181,9 +181,10 @@ function corePlugin(themes: ConfigThemes = {}, defaultTheme: DefaultThemeType, p
           85: '0.85',
         },
         strokeWidth: {
-          1: '1px',
-          2: '2px',
           3: '3px',
+          4: '4px',
+          5: '5px',
+          6: '6px',
         },
         height: {
           divider: `var(--${prefix}-divider-weight)`,

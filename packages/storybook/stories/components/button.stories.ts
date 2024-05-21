@@ -41,7 +41,7 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-const defaultProps = {
+const defaultProps: InstanceType<typeof Button>['$props'] = {
   ...button.defaultVariants,
   rippled: true,
   loading: false,
@@ -78,5 +78,20 @@ export const Loading: Story = {
   args: {
     ...defaultProps,
     loading: true,
+  },
+}
+
+export const UseSlotToSetTitle: Story = {
+  args: {
+    ...defaultProps,
+    default: 'Hello, I\'m a button',
+  },
+}
+
+export const CustomStyle: Story = {
+  args: {
+    ...defaultProps,
+    radius: 'full',
+    class: 'bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg',
   },
 }

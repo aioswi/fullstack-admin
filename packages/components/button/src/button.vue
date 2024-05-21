@@ -52,7 +52,7 @@ const { pressed } = useMousePressed({ target: _ref })
 
 const hovered = useElementHover(_ref)
 
-const isDisabled = computed(() => {
+const _disabled = computed(() => {
   const { disabled, loading } = props
   return disabled || loading
 })
@@ -64,17 +64,18 @@ const styles = computed(() => {
     color,
     variant,
     radius,
-    disabled: isDisabled.value,
+    disabled: _disabled.value,
     disableAnimation,
   })
 })
 
 const _props = computed(() => {
+  const disabled = _disabled.value
   return {
     'data-pressed': pressed.value,
-    'data-hover': !isDisabled.value && hovered.value,
-    'ariaDisabled': isDisabled.value,
-    'disabled': isDisabled.value,
+    'data-hover': !disabled && hovered.value,
+    'ariaDisabled': disabled,
+    'disabled': disabled,
   }
 })
 
@@ -98,6 +99,8 @@ function handleClick(evt: MouseEvent) {
 defineExpose({
   /** @description button html element */
   ref: _ref,
+  /** @description button disabled */
+  disabled: _disabled,
 })
 </script>
 
@@ -108,11 +111,14 @@ defineExpose({
     v-bind="_props"
     @click="handleClick"
   >
-    <Spinner
-      v-if="loading"
-      color="current"
-      :size="spinnerSize"
-    />
+    <template v-if="loading">
+      <slot name="spinner">
+        <Spinner
+          color="current"
+          :size="spinnerSize"
+        />
+      </slot>
+    </template>
     <slot>Button</slot>
     <Ripple
       v-if="rippled"
