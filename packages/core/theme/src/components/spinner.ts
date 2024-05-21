@@ -13,7 +13,6 @@ const spinner = tv({
     size: {
       sm: {
         wrapper: 'w-5 h-5',
-        ring: 'stroke-3',
         label: 'text-small',
       },
       md: {

@@ -16,6 +16,7 @@
     "vue": "^3.4.21"
   },
   "devDependencies": {
+    "@storybook/addon-docs": "^8.0.10",
     "@storybook/addon-essentials": "^8.0.10",
     "@storybook/addon-interactions": "^8.0.10",
     "@storybook/addon-links": "^8.0.10",

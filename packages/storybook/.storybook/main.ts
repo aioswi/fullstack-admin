@@ -1,23 +1,36 @@
-import { dirname, join } from 'node:path'
 import type { StorybookConfig } from '@storybook/vue3-vite'
-
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')))
-}
 
 const config: StorybookConfig = {
   stories: [
-    '../stories/**/*.@(mdx|stories.@(js|jsx|ts|tsx))',
+    '../stories/**/*.mdx',
+    '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   staticDirs: ['../public'],
   addons: [
-    getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-essentials'),
-    getAbsolutePath('@storybook/addon-interactions'),
-    getAbsolutePath('storybook-dark-mode'),
+    {
+      name: '@storybook/addon-essentials',
+      options: {
+        docs: false,
+      },
+    },
+    '@storybook/addon-interactions',
+    'storybook-dark-mode',
+    '@storybook/addon-links',
+    {
+      name: '@storybook/addon-docs',
+      options: {
+        mdxPluginOptions: {
+          mdxCompileOptions: {
+          // MDX2 turned off Github flavoured markdown
+          // https://storybook.js.org/docs/7.0/react/writing-docs/mdx#lack-of-github-flavored-markdown-gfm
+            // remarkPlugins: [remarkGfm],
+          },
+        },
+      },
+    },
   ],
   framework: {
-    name: getAbsolutePath('@storybook/vue3-vite'),
+    name: '@storybook/vue3-vite',
     options: {},
   },
   docs: {

@@ -24,7 +24,6 @@ const parameters: Preview['parameters'] = {
   },
   docs: {
     // theme: themes.dark,
-    inlineStories: false,
   },
   darkMode: {
     current: 'dark',
