@@ -8,3 +8,5 @@ export { default as Ripple } from './ripple'
 
 export * from './spinner'
 export { default as Spinner } from './spinner'
+
+export { default as Input } from './input'
