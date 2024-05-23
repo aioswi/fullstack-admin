@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref } from 'vue'
-import { input, isEmpty } from '@ciao/theme'
+import { input } from '@ciao/theme'
+import { isEmpty, isString } from '@ciao/shared-utils'
 import { useElementHover, useFocus, useFocusWithin } from '@vueuse/core'
 import type {
   InputColors,

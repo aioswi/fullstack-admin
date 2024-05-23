@@ -98,6 +98,9 @@ importers:
 
   packages/components:
     dependencies:
+      '@ciao/shared-utils':
+        specifier: workspace:^
+        version: link:../shared-utils
       '@ciao/theme':
         specifier: workspace:^
         version: link:../core/theme
@@ -193,6 +196,15 @@ importers:
       tsup:
         specifier: ^8.0.2
         version: 8.0.2(postcss@8.4.38)(typescript@5.4.5)
+
+  packages/shared-utils:
+    devDependencies:
+      '@ciao/tsconfig':
+        specifier: workspace:^
+        version: link:../tsconfig
+      typescript:
+        specifier: ^5.2.2
+        version: 5.4.5
 
   packages/storybook:
     dependencies:

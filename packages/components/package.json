@@ -19,6 +19,7 @@
     "vue": ">=3"
   },
   "dependencies": {
+    "@ciao/shared-utils": "workspace:^",
     "@ciao/theme": "workspace:^",
     "@vueuse/core": "^10.9.0"
   },
