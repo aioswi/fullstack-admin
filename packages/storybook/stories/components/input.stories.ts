@@ -35,7 +35,10 @@ const meta = {
       control: {
         type: 'select',
       },
-      options: ['inside', 'outside', 'outside-left', 'multiline'],
+      options: ['inside', 'outside', 'outside-left'],
+    },
+    labelAlwaysFloat: {
+      control: 'boolean',
     },
   },
 } satisfies Meta<typeof Input>

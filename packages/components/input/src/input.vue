@@ -55,6 +55,10 @@ const props = defineProps({
   placeholder: {
     type: String,
   },
+  /** @description label always float */
+  labelAlwaysFloat: {
+    type: Boolean,
+  },
 })
 
 const emits = defineEmits({
@@ -76,14 +80,7 @@ const isFilledWithin = computed(() => isFilled.value || isFocusWithin.value)
 
 const hasPlaceholder = computed(() => !!props.placeholder)
 
-const isPlaceholderShown = computed(() => {
-  const { modelValue: inputValue } = props
-  const ref = _inputRef.value
-  console.log('placeholder showne', inputValue)
-  return ref
-    ? (!ref.value || ref.value === '' || !inputValue || inputValue === '') && hasPlaceholder.value
-    : false
-})
+const inputValue = ref(props.modelValue)
 
 const _baseProps = computed(() => {
   const { disabled, label } = props
@@ -91,7 +88,7 @@ const _baseProps = computed(() => {
     'data-hover': !disabled && hovered.value,
     'data-has-label': !!label,
     'data-focus': focused.value,
-    'data-filled-within': isFilledWithin.value || hasPlaceholder.value || isPlaceholderShown.value,
+    'data-filled-within': isFilledWithin.value || hasPlaceholder.value || Boolean(inputValue.value),
   }
 })
 
@@ -111,27 +108,32 @@ const _inputWrapperProps = computed(() => {
 })
 
 const _inputProps = computed(() => {
-  const { disabled, placeholder } = props
+  const { disabled, placeholder, readonly, required } = props
   return {
-    ref: _inputRef,
+    'ref': _inputRef,
     disabled,
     placeholder,
+    readonly,
+    required,
+    'aria-readonly': readonly,
+    'aria-required': required,
   }
 })
 
 const labelPlacement = computed<InputLabelPlacements>(() => {
-  const { labelPlacement, label, placeholder } = props
-  if (labelPlacement === 'inside') {
-    if (!label)
-      return 'outside'
-    // else if (placeholder)
-    //   return 'multiline'
-  }
+  const { labelPlacement, label } = props
+  if (labelPlacement === 'inside' && !label)
+    return 'outside'
   return labelPlacement
 })
 
-const slots = computed(() => {
-  const { variant, radius, size, color, required, disabled } = props
+const isLabelOutside = computed(() => {
+  const { labelAlwaysFloat } = props
+  return labelPlacement.value === 'outside-left' || (labelPlacement.value === 'outside' && labelAlwaysFloat)
+})
+
+const styleSlots = computed(() => {
+  const { variant, radius, size, color, required, disabled, disableAnimation, labelAlwaysFloat } = props
   return input({
     variant,
     radius,
@@ -140,6 +142,8 @@ const slots = computed(() => {
     required,
     disabled,
     labelPlacement: labelPlacement.value,
+    disableAnimation,
+    labelAlwaysFloat,
   })
 })
 
@@ -150,6 +154,8 @@ function handleFocusInput(e: MouseEvent) {
 
 function handleInput(e: Event) {
   const { value } = e.target as HTMLInputElement
+
+  inputValue.value = value
   emits('update:modelValue', value)
 }
 </script>
@@ -157,30 +163,28 @@ function handleInput(e: Event) {
 <template>
   <div
     ref="_ref"
-    :class="slots.base()"
+    :class="styleSlots.base()"
     v-bind="_baseProps"
   >
-    <div :class="slots.mainWrapper()">
+    <label v-if="isLabelOutside" :class="styleSlots.label()">{{ label }}</label>
+    <div
+      :class="styleSlots.inputWrapper()"
+      v-bind="_inputWrapperProps"
+      @click="handleFocusInput"
+    >
+      <label v-if="!isLabelOutside" :class="styleSlots.label()">{{ label }}</label>
       <div
-        :class="slots.inputWrapper()"
-        v-bind="_inputWrapperProps"
+        :class="styleSlots.innerWrapper()"
+        v-bind="_innerWrapperProps"
         @click="handleFocusInput"
       >
-        <label :class="slots.label()">{{ label }}</label>
-        <div
-          :class="slots.innerWrapper()"
-          v-bind="_innerWrapperProps"
-          :style="{ cursor: 'text' }"
-          @click="handleFocusInput"
+        <input
+          v-bind="_inputProps"
+          :class="styleSlots.input()"
+          @input="handleInput"
         >
-          <input
-            v-bind="_inputProps"
-            :class="slots.input()"
-            @input="handleInput"
-          >
-        </div>
       </div>
-      <!-- error message  -->
     </div>
+    <!-- error message  -->
   </div>
 </template>

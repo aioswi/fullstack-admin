@@ -1,7 +1,7 @@
 import type { VariantProps } from 'tailwind-variants'
 
 import { tv } from '../utils/tv'
-import { dataFocusVisibleClasses, groupDataFocusVisibleClasses } from '../utils'
+import { groupDataFocusVisibleClasses } from '../utils'
 
 const input = tv({
   slots: {
@@ -17,9 +17,8 @@ const input = tv({
       'text-small',
       'text-foreground-500',
     ],
-    mainWrapper: 'h-full',
     inputWrapper: 'relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-sn px-3 gap-3',
-    innerWrapper: 'inline-flex w-full items-center h-full box-border',
+    innerWrapper: 'inline-flex w-full items-center h-full box-border cursor-text',
     input: [
       'w-full font-normal bg-transparent !outline-none placeholder:text-foreground-500 focus-visible:outline-none',
       'data-[has-start-content=true]:ps-1.5',
@@ -107,12 +106,10 @@ const input = tv({
     },
     labelPlacement: {
       'outside': {
-        mainWrapper: 'flex flex-col',
       },
       'outside-left': {
         base: 'flex-row items-center flex-nowrap data-[has-helper=true]:items-start',
         inputWrapper: 'flex-1',
-        mainWrapper: 'flex flex-col',
         label: 'relative text-foreground pr-2 rtl:pr-0 rtl:pl-2',
       },
       'inside': {
@@ -120,7 +117,14 @@ const input = tv({
         inputWrapper: 'flex-col items-start justify-center gap-0',
         innerWrapper: 'group-data-[has-label=true]:items-end',
       },
-      'multiline': {},
+    },
+    labelAlwaysFloat: {
+      true: {
+        label: 'relative',
+        inputWrapper: '!h-auto',
+        innerWrapper: 'items-start group-data-[has-label=true]:items-start',
+        input: 'resize-none data-[hide-scroll=true]:scrollbar-hide',
+      },
     },
     size: {
       sm: {
@@ -148,9 +152,10 @@ const input = tv({
     },
     disabled: {
       true: {
-        base: 'opacity-disabled pointer-events-none',
-        inputWrapper: 'pointer-events-none',
-        label: 'pointer-events-none',
+        base: 'opacity-disabled pointer-events-auto cursor-not-allowed',
+        innerWrapper: 'pointer-events-auto cursor-not-allowed',
+        label: 'pointer-events-auto cursor-not-allowed',
+        input: 'pointer-events-auto cursor-not-allowed',
       },
     },
     disableAnimation: {
@@ -180,6 +185,7 @@ const input = tv({
     disabled: false,
     disableAnimation: false,
     labelPlacement: 'inside',
+    labelAlwaysFloat: false,
   },
   compoundVariants: [
     // flat & color
@@ -538,6 +544,7 @@ const input = tv({
     },
     {
       labelPlacement: 'outside',
+      labelAlwaysFloat: false,
       class: {
         base: 'group relative justify-end',
         label: [
@@ -589,6 +596,7 @@ const input = tv({
     },
     {
       labelPlacement: 'inside',
+      labelAlwaysFloat: false,
       size: 'sm',
       class: {
         label: [
@@ -598,6 +606,7 @@ const input = tv({
     },
     {
       labelPlacement: 'inside',
+      labelAlwaysFloat: false,
       size: 'md',
       class: {
         label: [
@@ -607,6 +616,7 @@ const input = tv({
     },
     {
       labelPlacement: 'inside',
+      labelAlwaysFloat: false,
       size: 'lg',
       class: {
         label: [
@@ -619,6 +629,7 @@ const input = tv({
     {
       labelPlacement: 'inside',
       variant: ['faded', 'bordered'],
+      labelAlwaysFloat: false,
       size: 'sm',
       class: {
         label: [
@@ -629,6 +640,7 @@ const input = tv({
     {
       labelPlacement: 'inside',
       variant: ['faded', 'bordered'],
+      labelAlwaysFloat: false,
       size: 'md',
       class: {
         label: [
@@ -639,6 +651,7 @@ const input = tv({
     {
       labelPlacement: 'inside',
       variant: ['faded', 'bordered'],
+      labelAlwaysFloat: false,
       size: 'lg',
       class: {
         label: [
@@ -651,6 +664,7 @@ const input = tv({
     {
       labelPlacement: 'inside',
       variant: 'underlined',
+      labelAlwaysFloat: false,
       size: 'sm',
       class: {
         label: [
@@ -661,6 +675,7 @@ const input = tv({
     {
       labelPlacement: 'inside',
       variant: 'underlined',
+      labelAlwaysFloat: false,
       size: 'md',
       class: {
         label: [
@@ -672,6 +687,7 @@ const input = tv({
       labelPlacement: 'inside',
       variant: 'underlined',
       size: 'lg',
+      labelAlwaysFloat: false,
       class: {
         label: [
           'text-medium',
@@ -683,6 +699,7 @@ const input = tv({
     {
       labelPlacement: 'outside',
       size: 'sm',
+      labelAlwaysFloat: false,
       class: {
         label: [
           'left-2',
@@ -695,6 +712,7 @@ const input = tv({
     {
       labelPlacement: 'outside',
       size: 'md',
+      labelAlwaysFloat: false,
       class: {
         label: [
           'left-3',
@@ -709,6 +727,7 @@ const input = tv({
     {
       labelPlacement: 'outside',
       size: 'lg',
+      labelAlwaysFloat: false,
       class: {
         label: [
           'left-3',
@@ -742,34 +761,35 @@ const input = tv({
         label: 'group-data-[has-helper=true]:pt-4',
       },
     },
-    // labelPlacement=[outside, outside-left] & isMultiline
+    // labelPlacement=[outside, outside-left] & labelAlwaysFloat
     {
       labelPlacement: ['outside', 'outside-left'],
-      isMultiline: true,
+      labelAlwaysFloat: true,
       class: {
         inputWrapper: 'py-2',
+        label: 'text-foreground',
       },
     },
-    // isMultiline & labelPlacement="outside"
+    // labelAlwaysFloat & labelPlacement="outside"
     {
       labelPlacement: 'outside',
-      isMultiline: true,
+      labelAlwaysFloat: true,
       class: {
         label: 'pb-1.5',
       },
     },
-    // isMultiline & labelPlacement="inside"
+    // labelAlwaysFloat & labelPlacement="inside"
     {
       labelPlacement: 'inside',
-      isMultiline: true,
+      labelAlwaysFloat: true,
       class: {
         label: 'pb-0.5',
         input: 'pt-0',
       },
     },
-    // isMultiline & !disableAnimation
+    // labelAlwaysFloat & !disableAnimation
     {
-      isMultiline: true,
+      labelAlwaysFloat: true,
       disableAnimation: false,
       class: {
         input: 'transition-height !duration-100 motion-reduce:transition-none',
@@ -782,9 +802,9 @@ const input = tv({
         label: ['pe-2', 'max-w-full', 'text-ellipsis', 'overflow-hidden'],
       },
     },
-    // isMultiline & radius=full
+    // labelAlwaysFloat & radius=full
     {
-      isMultiline: true,
+      labelAlwaysFloat: true,
       radius: 'full',
       class: {
         inputWrapper: 'data-[has-multiple-rows=true]:rounded-large',
