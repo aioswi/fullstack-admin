@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, ref, watch } from 'vue'
+import { computed, ref, useSlots, watch } from 'vue'
 import { input } from '@ciao/theme'
 import { isEmpty, isString } from '@ciao/shared-utils'
 import { useElementHover, useFocus, useFocusWithin } from '@vueuse/core'
@@ -85,6 +85,8 @@ const emits = defineEmits({
   'blur': (evt: FocusEvent) => evt instanceof FocusEvent,
 })
 
+const slots = useSlots()
+
 const _ref = ref<HTMLDivElement>()
 const _innerWrapperRef = ref<HTMLDivElement>()
 const _inputWrapperRef = ref<HTMLDivElement>()
@@ -140,6 +142,8 @@ const _inputProps = computed(() => {
     required,
     'data-filled': isFilled.value,
     'data-filled-within': isFilledWithin.value,
+    'data-has-prefix': !!slots.prefix,
+    'data-has-suffix': !!slots.suffix,
     'aria-readonly': readonly,
     'aria-required': required,
   }
@@ -294,21 +298,24 @@ defineExpose({
             @change="handleChange"
             @input="handleInput"
           >
-          <span
-            v-bind="_endButtonProps"
-            :class="[styleSlots.button(), styleSlots.clearButton()]"
-            @click="handleClear"
-          >
-            <CloseFilledIcon />
-          </span>
-          <span
-            v-bind="_endButtonProps"
-            :class="[styleSlots.button(), styleSlots.passwordButton()]"
-            @click="togglePasswordVisible"
-          >
-            <EyeSlashFilledIcon v-if="passwordVisible" />
-            <EyeFilledIcon v-else />
-          </span>
+          <!-- TODO: use more flexable slot -->
+          <slot name="suffix">
+            <span
+              v-bind="_endButtonProps"
+              :class="[styleSlots.button(), styleSlots.clearButton()]"
+              @click="handleClear"
+            >
+              <CloseFilledIcon />
+            </span>
+            <span
+              v-bind="_endButtonProps"
+              :class="[styleSlots.button(), styleSlots.passwordButton()]"
+              @click="togglePasswordVisible"
+            >
+              <EyeSlashFilledIcon v-if="passwordVisible" />
+              <EyeFilledIcon v-else />
+            </span>
+          </slot>
         </div>
       </div>
       <!-- error message  -->

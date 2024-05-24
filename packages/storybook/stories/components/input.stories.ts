@@ -133,3 +133,14 @@ export const Invalid: Story = {
     variant: 'bordered',
   },
 }
+
+export const Suffix: Story = {
+  args: {
+    ...defaultProps,
+    label: 'Price',
+    labelPlacement: 'outside',
+    variant: 'bordered',
+    suffix: '$',
+    modelValue: '0.00',
+  },
+}

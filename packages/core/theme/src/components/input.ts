@@ -22,8 +22,8 @@ const input = tv({
     innerWrapper: 'inline-flex w-full items-center h-full box-border cursor-text',
     input: [
       'w-full font-normal bg-transparent !outline-none placeholder:text-foreground-500 focus-visible:outline-none',
-      'data-[has-start-content=true]:ps-1.5',
-      'data-[has-end-content=true]:pe-1.5',
+      'data-[has-prefix=true]:ps-1.5',
+      'data-[has-suffix=true]:pe-1.5',
     ],
     button: [
       'p-2',
