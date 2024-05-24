@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { input } from '@ciao/theme'
 import { isEmpty, isString } from '@ciao/shared-utils'
 import { useElementHover, useFocus, useFocusWithin } from '@vueuse/core'
-import { CloseFilledIcon } from '../../icons'
+import { CloseFilledIcon, EyeFilledIcon, EyeSlashFilledIcon } from '../../icons'
 import type {
   InputColors,
   InputLabelPlacements,
@@ -70,6 +70,10 @@ const props = defineProps({
   errorMessage: {
     type: [String],
   },
+  /** @description use password input type */
+  password: {
+    type: Boolean,
+  },
 })
 
 const emits = defineEmits({
@@ -96,6 +100,8 @@ const hasPlaceholder = computed(() => !!props.placeholder)
 const inputValue = ref(props.modelValue)
 const isFilled = computed(() => !isEmpty(inputValue.value))
 const isFilledWithin = computed(() => isFilled.value || isFocusWithin.value)
+
+const passwordVisible = ref(!props.password)
 
 const _baseProps = computed(() => {
   const { disabled, label, errorMessage } = props
@@ -139,7 +145,7 @@ const _inputProps = computed(() => {
   }
 })
 
-const _clearButtonProps = computed(() => {
+const _endButtonProps = computed(() => {
   return {
     role: 'button',
     tabIndex: 0,
@@ -171,6 +177,7 @@ const styleSlots = computed(() => {
     invalid,
     clearable,
     readonly,
+    password,
   } = props
   return input({
     variant,
@@ -185,6 +192,7 @@ const styleSlots = computed(() => {
     invalid,
     clearable,
     readonly,
+    password,
   })
 })
 
@@ -210,6 +218,10 @@ function handleChange(e: Event) {
   emits('change', (e.target as HTMLInputElement).value)
 }
 
+function togglePasswordVisible() {
+  passwordVisible.value = !passwordVisible.value
+}
+
 function blur() {
   _inputRef.value?.blur()
 }
@@ -225,6 +237,10 @@ function clear() {
   emits('clear')
   emits('input', '')
 }
+
+watch(() => props.password, (val) => {
+  passwordVisible.value = !val
+})
 
 defineExpose({
   /** @description HTML element, input */
@@ -257,7 +273,12 @@ defineExpose({
         v-bind="_inputWrapperProps"
         @click="handleFocusInput"
       >
-        <label v-if="label && !isLabelOutside" :class="styleSlots.label()">{{ label }}</label>
+        <label
+          v-if="label && !isLabelOutside"
+          :class="styleSlots.label()"
+        >
+          {{ label }}
+        </label>
         <div
           :class="styleSlots.innerWrapper()"
           v-bind="_innerWrapperProps"
@@ -267,17 +288,26 @@ defineExpose({
             v-bind="_inputProps"
             v-model="inputValue"
             :class="styleSlots.input()"
+            :type="passwordVisible ? 'text' : 'password'"
             @blur="(e) => emits('blur', e)"
             @focus="(e) => emits('focus', e)"
             @change="handleChange"
             @input="handleInput"
           >
           <span
-            v-bind="_clearButtonProps"
-            :class="styleSlots.clearButton()"
+            v-bind="_endButtonProps"
+            :class="[styleSlots.button(), styleSlots.clearButton()]"
             @click="handleClear"
           >
             <CloseFilledIcon />
+          </span>
+          <span
+            v-bind="_endButtonProps"
+            :class="[styleSlots.button(), styleSlots.passwordButton()]"
+            @click="togglePasswordVisible"
+          >
+            <EyeSlashFilledIcon v-if="passwordVisible" />
+            <EyeFilledIcon v-else />
           </span>
         </div>
       </div>

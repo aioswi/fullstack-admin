@@ -25,11 +25,10 @@ const input = tv({
       'data-[has-start-content=true]:ps-1.5',
       'data-[has-end-content=true]:pe-1.5',
     ],
-    clearButton: [
+    button: [
       'p-2',
       '-m-2',
       'z-10',
-      'hidden',
       'absolute',
       'right-3',
       'rtl:right-auto',
@@ -41,9 +40,14 @@ const input = tv({
       'hover:!opacity-100',
       'cursor-pointer',
       'active:!opacity-70',
-      'rounded-full',
       // focus ring
       ...dataFocusVisibleClasses,
+    ],
+    clearButton: [
+      'hidden',
+    ],
+    passwordButton: [
+      'hidden',
     ],
     errorMessage: 'text-tiny text-danger',
     errorWrapper: 'hidden flex p-1 relative flex-col gap-1.5',
@@ -155,17 +159,17 @@ const input = tv({
         label: 'text-tiny',
         inputWrapper: 'h-8 min-h-8 px-2',
         input: 'text-small',
-        clearButton: 'text-medium',
+        button: 'text-medium',
       },
       md: {
         inputWrapper: 'h-10 min-h-10',
         input: 'text-small',
-        clearButton: 'text-large',
+        button: 'text-large',
       },
       lg: {
         inputWrapper: 'h-12 min-h-12',
         input: 'text-medium',
-        clearButton: 'text-large',
+        button: 'text-large',
       },
     },
     required: {
@@ -198,7 +202,7 @@ const input = tv({
           'motion-reduce:transition-none',
           'transition-[transform,color,left,opacity]',
         ],
-        clearButton: ['transition-opacity', 'motion-reduce:transition-none'],
+        button: ['transition-opacity', 'motion-reduce:transition-none'],
       },
     },
     invalid: {
@@ -211,6 +215,13 @@ const input = tv({
       true: {
         input: 'peer pr-6 rtl:pr-0 rtl:pl-6',
         clearButton: 'peer-data-[filled=true]:opacity-70 peer-data-[filled=true]:block',
+      },
+    },
+    password: {
+      true: {
+        input: 'peer pr-6 rtl:pr-0 rtl:pl-6',
+        passwordButton: 'opacity-70 block',
+        clearButton: '!hidden',
       },
     },
     readonly: {

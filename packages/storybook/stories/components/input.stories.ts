@@ -68,10 +68,29 @@ export const Default: Story = {
   },
 }
 
+export const Required: Story = {
+  args: {
+    ...defaultProps,
+    label: 'Email',
+    required: true,
+    modelValue: '2H1hA@example.com',
+  },
+}
+
 export const Disabled: Story = {
   args: {
     ...defaultProps,
     disabled: true,
+    variant: 'faded',
+    label: 'Email',
+    modelValue: '2H1hA@example.com',
+  },
+}
+
+export const WithoutLabel: Story = {
+  args: {
+    label: '',
+    placeholder: 'Enter your username',
   },
 }
 
@@ -79,5 +98,38 @@ export const DisableAnimation: Story = {
   args: {
     ...defaultProps,
     disableAnimation: true,
+    label: 'Email',
+  },
+}
+
+export const Clearable: Story = {
+  args: {
+    ...defaultProps,
+    clearable: true,
+    label: 'Email',
+    modelValue: '2H1hA@example.com',
+    variant: 'bordered',
+  },
+}
+
+export const Password: Story = {
+  args: {
+    ...defaultProps,
+    password: true,
+    label: 'Password',
+    placeholder: 'Enter your password',
+    variant: 'bordered',
+    color: 'primary',
+  },
+}
+
+export const Invalid: Story = {
+  args: {
+    ...defaultProps,
+    invalid: true,
+    label: 'Email',
+    modelValue: '2H1hA@example.com',
+    errorMessage: 'Please enter a valid email address',
+    variant: 'bordered',
   },
 }
