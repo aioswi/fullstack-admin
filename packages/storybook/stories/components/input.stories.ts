@@ -40,6 +40,15 @@ const meta = {
     labelAlwaysFloat: {
       control: 'boolean',
     },
+    invalid: {
+      control: 'boolean',
+    },
+    clearable: {
+      control: 'boolean',
+    },
+    errorMessage: {
+      control: 'text',
+    },
   },
 } satisfies Meta<typeof Input>
 
@@ -47,8 +56,9 @@ export default meta
 
 type Story = StoryObj<typeof meta>
 
-const defaultProps: InstanceType<typeof Input>['$props'] = {
+const defaultProps: InstanceType<typeof Input>['$props'] & { readonly: boolean } = {
   ...input.defaultVariants,
+  readonly: false,
 }
 
 export const Default: Story = {

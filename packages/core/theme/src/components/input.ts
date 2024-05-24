@@ -1,7 +1,7 @@
 import type { VariantProps } from 'tailwind-variants'
 
 import { tv } from '../utils/tv'
-import { groupDataFocusVisibleClasses } from '../utils'
+import { dataFocusVisibleClasses, groupDataFocusVisibleClasses } from '../utils'
 
 const input = tv({
   slots: {
@@ -17,6 +17,7 @@ const input = tv({
       'text-small',
       'text-foreground-500',
     ],
+    mainWrapper: 'h-full',
     inputWrapper: 'relative w-full inline-flex tap-highlight-transparent flex-row items-center shadow-sn px-3 gap-3',
     innerWrapper: 'inline-flex w-full items-center h-full box-border cursor-text',
     input: [
@@ -24,7 +25,28 @@ const input = tv({
       'data-[has-start-content=true]:ps-1.5',
       'data-[has-end-content=true]:pe-1.5',
     ],
+    clearButton: [
+      'p-2',
+      '-m-2',
+      'z-10',
+      'hidden',
+      'absolute',
+      'right-3',
+      'rtl:right-auto',
+      'rtl:left-3',
+      'appearance-none',
+      'outline-none',
+      'select-none',
+      'opacity-0',
+      'hover:!opacity-100',
+      'cursor-pointer',
+      'active:!opacity-70',
+      'rounded-full',
+      // focus ring
+      ...dataFocusVisibleClasses,
+    ],
     errorMessage: 'text-tiny text-danger',
+    errorWrapper: 'hidden flex p-1 relative flex-col gap-1.5',
   },
   variants: {
     variant: {
@@ -106,10 +128,12 @@ const input = tv({
     },
     labelPlacement: {
       'outside': {
+        mainWrapper: 'flex flex-col',
       },
       'outside-left': {
-        base: 'flex-row items-center flex-nowrap data-[has-helper=true]:items-start',
+        base: 'flex-row items-center flex-nowrap data-[invalid=true]:items-start',
         inputWrapper: 'flex-1',
+        mainWrapper: 'flex flex-col flex-1',
         label: 'relative text-foreground pr-2 rtl:pr-0 rtl:pl-2',
       },
       'inside': {
@@ -156,6 +180,7 @@ const input = tv({
         innerWrapper: 'pointer-events-auto cursor-not-allowed',
         label: 'pointer-events-auto cursor-not-allowed',
         input: 'pointer-events-auto cursor-not-allowed',
+        clearButton: '!hidden',
       },
     },
     disableAnimation: {
@@ -176,6 +201,23 @@ const input = tv({
         clearButton: ['transition-opacity', 'motion-reduce:transition-none'],
       },
     },
+    invalid: {
+      true: {
+        label: '!text-danger',
+        input: '!placeholder:text-danger !text-danger',
+      },
+    },
+    clearable: {
+      true: {
+        input: 'peer pr-6 rtl:pr-0 rtl:pl-6',
+        clearButton: 'peer-data-[filled=true]:opacity-70 peer-data-[filled=true]:block',
+      },
+    },
+    readonly: {
+      true: {
+        clearButton: '!hidden',
+      },
+    },
   },
   defaultVariants: {
     variant: 'flat',
@@ -186,6 +228,8 @@ const input = tv({
     disableAnimation: false,
     labelPlacement: 'inside',
     labelAlwaysFloat: false,
+    invalid: false,
+    clearable: false,
   },
   compoundVariants: [
     // flat & color
@@ -470,30 +514,30 @@ const input = tv({
         ],
       },
     },
-    // isInvalid & variant
+    // invalid & variant
     {
-      isInvalid: true,
+      invalid: true,
       variant: 'flat',
       class: {
         inputWrapper: [
-          'bg-danger-50',
-          'data-[hover=true]:bg-danger-100',
-          'group-data-[focus=true]:bg-danger-50',
+          '!bg-danger-50',
+          'data-[hover=true]:!bg-danger-100',
+          'group-data-[focus=true]:!bg-danger-50',
         ],
       },
     },
     {
-      isInvalid: true,
+      invalid: true,
       variant: 'bordered',
       class: {
-        inputWrapper: '!border-danger group-data-[focus=true]:border-danger',
+        inputWrapper: '!border-danger group-data-[focus=true]:!border-danger',
       },
     },
     {
-      isInvalid: true,
+      invalid: true,
       variant: 'underlined',
       class: {
-        inputWrapper: 'after:bg-danger',
+        inputWrapper: 'after:!bg-danger',
       },
     },
     // size & labelPlacement
@@ -744,21 +788,21 @@ const input = tv({
       labelPlacement: 'outside-left',
       size: 'sm',
       class: {
-        label: 'group-data-[has-helper=true]:pt-2',
+        label: 'group-data-[invalid=true]:pt-1.5',
       },
     },
     {
       labelPlacement: 'outside-left',
       size: 'md',
       class: {
-        label: 'group-data-[has-helper=true]:pt-3',
+        label: 'group-data-[invalid=true]:pt-2.5',
       },
     },
     {
       labelPlacement: 'outside-left',
       size: 'lg',
       class: {
-        label: 'group-data-[has-helper=true]:pt-4',
+        label: 'group-data-[invalid=true]:pt-3.5',
       },
     },
     // labelPlacement=[outside, outside-left] & labelAlwaysFloat

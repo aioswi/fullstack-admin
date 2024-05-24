@@ -4,6 +4,7 @@ import { computed, ref } from 'vue'
 import { input } from '@ciao/theme'
 import { isEmpty, isString } from '@ciao/shared-utils'
 import { useElementHover, useFocus, useFocusWithin } from '@vueuse/core'
+import { CloseFilledIcon } from '../../icons'
 import type {
   InputColors,
   InputLabelPlacements,
@@ -60,10 +61,24 @@ const props = defineProps({
   labelAlwaysFloat: {
     type: Boolean,
   },
+  invalid: {
+    type: Boolean,
+  },
+  clearable: {
+    type: Boolean,
+  },
+  errorMessage: {
+    type: [String],
+  },
 })
 
 const emits = defineEmits({
-  'update:modelValue': (value: string) => typeof value === 'string',
+  'update:modelValue': (value: string) => isString(value),
+  'input': (value: string) => isString(value),
+  'clear': () => true,
+  'change': (value: string) => isString(value),
+  'focus': (evt: FocusEvent) => evt instanceof FocusEvent,
+  'blur': (evt: FocusEvent) => evt instanceof FocusEvent,
 })
 
 const _ref = ref<HTMLDivElement>()
@@ -76,20 +91,21 @@ const hovered = useElementHover(_ref)
 const { focused } = useFocus(_inputRef)
 const { focused: isFocusWithin } = useFocusWithin(_inputWrapperRef)
 
-const isFilled = computed(() => !isEmpty(props.modelValue))
-const isFilledWithin = computed(() => isFilled.value || isFocusWithin.value)
-
 const hasPlaceholder = computed(() => !!props.placeholder)
 
 const inputValue = ref(props.modelValue)
+const isFilled = computed(() => !isEmpty(inputValue.value))
+const isFilledWithin = computed(() => isFilled.value || isFocusWithin.value)
 
 const _baseProps = computed(() => {
-  const { disabled, label } = props
+  const { disabled, label, errorMessage } = props
   return {
     'data-hover': !disabled && hovered.value,
     'data-has-label': !!label,
     'data-focus': focused.value,
+    'data-filled': isFilled.value,
     'data-filled-within': isFilledWithin.value || hasPlaceholder.value || Boolean(inputValue.value),
+    'data-invalid': !!errorMessage,
   }
 })
 
@@ -116,8 +132,17 @@ const _inputProps = computed(() => {
     placeholder,
     readonly,
     required,
+    'data-filled': isFilled.value,
+    'data-filled-within': isFilledWithin.value,
     'aria-readonly': readonly,
     'aria-required': required,
+  }
+})
+
+const _clearButtonProps = computed(() => {
+  return {
+    role: 'button',
+    tabIndex: 0,
   }
 })
 
@@ -134,7 +159,19 @@ const isLabelOutside = computed(() => {
 })
 
 const styleSlots = computed(() => {
-  const { variant, radius, size, color, required, disabled, disableAnimation, labelAlwaysFloat } = props
+  const {
+    variant,
+    radius,
+    size,
+    color,
+    required,
+    disabled,
+    disableAnimation,
+    labelAlwaysFloat,
+    invalid,
+    clearable,
+    readonly,
+  } = props
   return input({
     variant,
     radius,
@@ -145,6 +182,9 @@ const styleSlots = computed(() => {
     labelPlacement: labelPlacement.value,
     disableAnimation,
     labelAlwaysFloat,
+    invalid,
+    clearable,
+    readonly,
   })
 })
 
@@ -155,10 +195,48 @@ function handleFocusInput(e: MouseEvent) {
 
 function handleInput(e: Event) {
   const { value } = e.target as HTMLInputElement
-
-  inputValue.value = value
   emits('update:modelValue', value)
+  emits('input', value)
 }
+
+function handleClear() {
+  inputValue.value = ''
+
+  emits('update:modelValue', '')
+  emits('clear')
+}
+
+function handleChange(e: Event) {
+  emits('change', (e.target as HTMLInputElement).value)
+}
+
+function blur() {
+  _inputRef.value?.blur()
+}
+
+function focus() {
+  _inputRef.value?.focus()
+}
+
+function clear() {
+  inputValue.value = ''
+  emits('update:modelValue', '')
+  emits('change', '')
+  emits('clear')
+  emits('input', '')
+}
+
+defineExpose({
+  /** @description HTML element, input */
+  ref: _inputRef,
+
+  /** @description HTML input element native method */
+  focus,
+  /** @description HTML input element native method */
+  blur,
+  /** @description clear input value */
+  clear,
+})
 </script>
 
 <template>
@@ -167,25 +245,48 @@ function handleInput(e: Event) {
     :class="styleSlots.base()"
     v-bind="_baseProps"
   >
-    <label v-if="isLabelOutside" :class="styleSlots.label()">{{ label }}</label>
-    <div
-      :class="styleSlots.inputWrapper()"
-      v-bind="_inputWrapperProps"
-      @click="handleFocusInput"
+    <label
+      v-if="label && isLabelOutside"
+      :class="styleSlots.label()"
     >
-      <label v-if="!isLabelOutside" :class="styleSlots.label()">{{ label }}</label>
+      {{ label }}
+    </label>
+    <div :class="styleSlots.mainWrapper()">
       <div
-        :class="styleSlots.innerWrapper()"
-        v-bind="_innerWrapperProps"
+        :class="styleSlots.inputWrapper()"
+        v-bind="_inputWrapperProps"
         @click="handleFocusInput"
       >
-        <input
-          v-bind="_inputProps"
-          :class="styleSlots.input()"
-          @input="handleInput"
+        <label v-if="label && !isLabelOutside" :class="styleSlots.label()">{{ label }}</label>
+        <div
+          :class="styleSlots.innerWrapper()"
+          v-bind="_innerWrapperProps"
+          @click="handleFocusInput"
         >
+          <input
+            v-bind="_inputProps"
+            v-model="inputValue"
+            :class="styleSlots.input()"
+            @blur="(e) => emits('blur', e)"
+            @focus="(e) => emits('focus', e)"
+            @change="handleChange"
+            @input="handleInput"
+          >
+          <span
+            v-bind="_clearButtonProps"
+            :class="styleSlots.clearButton()"
+            @click="handleClear"
+          >
+            <CloseFilledIcon />
+          </span>
+        </div>
+      </div>
+      <!-- error message  -->
+      <div v-if="invalid && errorMessage" :class="styleSlots.errorWrapper()">
+        <div :class="styleSlots.errorMessage()">
+          {{ errorMessage }}
+        </div>
       </div>
     </div>
-    <!-- error message  -->
   </div>
 </template>
