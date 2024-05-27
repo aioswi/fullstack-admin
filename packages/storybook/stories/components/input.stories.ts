@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { input } from '@ciao/theme'
 import { Input } from '@ciao/uikit'
+import { h } from 'vue'
 
 const meta = {
   title: 'Components/Input',
@@ -134,13 +135,36 @@ export const Invalid: Story = {
   },
 }
 
+export const Prefix: Story = {
+  args: {
+    ...defaultProps,
+    label: 'Github',
+    labelPlacement: 'outside',
+    variant: 'bordered',
+    prefix: h('span', { class: 'text-default-400 text-sm' }, 'https://'),
+    placeholder: 'github.com',
+  },
+}
+
 export const Suffix: Story = {
   args: {
     ...defaultProps,
     label: 'Price',
     labelPlacement: 'outside',
     variant: 'bordered',
-    suffix: '$',
+    suffix: h('span', { class: 'text-default-400 text-sm' }, '$'),
     modelValue: '0.00',
+  },
+}
+
+export const PrefixAndSuffix: Story = {
+  args: {
+    ...defaultProps,
+    label: 'Website',
+    labelPlacement: 'inside',
+    variant: 'bordered',
+    prefix: h('span', { class: 'text-default-400 text-sm' }, 'https://'),
+    suffix: h('span', { class: 'text-default-400 text-sm' }, '.com'),
+    modelValue: 'github',
   },
 }

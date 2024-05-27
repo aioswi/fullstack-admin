@@ -241,6 +241,7 @@ const input = tv({
     labelAlwaysFloat: false,
     invalid: false,
     clearable: false,
+    password: false,
   },
   compoundVariants: [
     // flat & color

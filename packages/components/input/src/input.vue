@@ -15,7 +15,7 @@ import type {
 
 const props = defineProps({
   modelValue: {
-    type: [String, Number],
+    type: String,
     default: '',
   },
   label: {
@@ -288,6 +288,7 @@ defineExpose({
           v-bind="_innerWrapperProps"
           @click="handleFocusInput"
         >
+          <slot name="prefix" />
           <input
             v-bind="_inputProps"
             v-model="inputValue"
