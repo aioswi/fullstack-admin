@@ -41,13 +41,10 @@ const meta = {
     labelAlwaysFloat: {
       control: 'boolean',
     },
-    invalid: {
-      control: 'boolean',
-    },
     clearable: {
       control: 'boolean',
     },
-    errorMessage: {
+    validation: {
       control: 'text',
     },
   },
@@ -128,10 +125,40 @@ export const Invalid: Story = {
   args: {
     ...defaultProps,
     invalid: true,
-    label: 'Email',
-    modelValue: '2H1hA@example.com',
-    errorMessage: 'Please enter a valid email address',
+    label: 'Username',
+    modelValue: 'ciao',
     variant: 'bordered',
+  },
+}
+
+export const Validation: Story = {
+  args: {
+    ...defaultProps,
+    label: 'Username',
+    required: true,
+    variant: 'bordered',
+    placeholder: 'Please enter a valid username.',
+    modelValue: 'john.doe',
+    validation: 'Username is required.',
+  },
+}
+
+export const ValidationWithFunction: Story = {
+  args: {
+    ...defaultProps,
+    label: 'Email',
+    required: true,
+    variant: 'bordered',
+    placeholder: 'Please enter a valid email address.',
+    modelValue: '2H1hA@example.com',
+    validation: (value: string) => {
+      if (!value)
+        return 'Email is required.'
+      const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}$/i
+      if (!regex.test(value))
+        return 'Please enter a valid email address.'
+      return ''
+    },
   },
 }
 

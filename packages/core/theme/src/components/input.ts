@@ -136,7 +136,7 @@ const input = tv({
       'inside': {
         label: 'text-tiny cursor-text',
         inputWrapper: 'flex-col items-start justify-center gap-0',
-        innerWrapper: 'group-data-[filled=true]:items-end group-data-[focus=true]:items-end',
+        innerWrapper: 'group-data-[filled=true]:items-end group-data-[focus=true]:items-end group-data-[filled-within]:items-end',
       },
     },
     labelAlwaysFloat: {

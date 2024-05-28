@@ -67,8 +67,8 @@ const props = defineProps({
   clearable: {
     type: Boolean,
   },
-  errorMessage: {
-    type: [String],
+  validation: {
+    type: [String, Function] as PropType<string | ((value: string) => string)>,
   },
   /** @description use password input type */
   password: {
@@ -141,15 +141,27 @@ const isSuffixVisible = computed(() =>
   || isWordLimitVisible.value,
 )
 
+const errorMessage = computed(() => {
+  const { validation } = props
+  return typeof validation === 'string' ? validation : validation?.(inputValue.value) ?? ''
+})
+
+const isInvalid = computed(() => {
+  const { invalid, validation } = props
+  return invalid
+    || (typeof validation === 'function' && !isEmpty(errorMessage.value))
+    || (!isEmpty(validation) && isEmpty(inputValue.value))
+})
+
 const _baseProps = computed(() => {
-  const { disabled, label, errorMessage } = props
+  const { disabled, label } = props
   return {
     'data-hover': !disabled && hovered.value,
     'data-has-label': !!label,
     'data-focus': focused.value,
     'data-filled': isFilled.value,
     'data-filled-within': isFilledWithin.value || !!slots.prefix || hasPlaceholder.value || Boolean(inputValue.value),
-    'data-invalid': !!errorMessage,
+    'data-invalid': isInvalid.value,
   }
 })
 
@@ -216,7 +228,6 @@ const styleSlots = computed(() => {
     disabled,
     disableAnimation,
     labelAlwaysFloat,
-    invalid,
     clearable,
     readonly,
     password,
@@ -231,7 +242,7 @@ const styleSlots = computed(() => {
     labelPlacement: labelPlacement.value,
     disableAnimation,
     labelAlwaysFloat,
-    invalid,
+    invalid: isInvalid.value,
     clearable,
     readonly,
     password,
@@ -365,7 +376,7 @@ defineExpose({
         </div>
       </div>
       <!-- error message  -->
-      <div v-if="invalid && errorMessage" :class="styleSlots.errorWrapper()">
+      <div v-if="isInvalid" :class="styleSlots.errorWrapper()">
         <div :class="styleSlots.errorMessage()">
           {{ errorMessage }}
         </div>
