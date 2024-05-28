@@ -74,6 +74,17 @@ const props = defineProps({
   password: {
     type: Boolean,
   },
+  /** @description native min length */
+  minlength: {
+    type: Number,
+  },
+  /** @description native max length */
+  maxlength: {
+    type: Number,
+  },
+  showWordLimit: {
+    type: Boolean,
+  },
 })
 
 const emits = defineEmits({
@@ -105,6 +116,31 @@ const isFilledWithin = computed(() => isFilled.value || isFocusWithin.value)
 
 const passwordVisible = ref(!props.password)
 
+const isPasswordVisible = computed(() =>
+  props.password && !props.disabled && !props.readonly,
+)
+
+const isWordLimitVisible = computed(() =>
+  props.showWordLimit
+  && !!props.maxlength
+  && !props.disabled
+  && !props.readonly
+  && !isPasswordVisible.value,
+)
+
+const isClearVisible = computed(() =>
+  props.clearable
+  && !props.disabled
+  && !props.readonly,
+)
+
+const isSuffixVisible = computed(() =>
+  !!slots.suffix
+  || props.password
+  || props.clearable
+  || isWordLimitVisible.value,
+)
+
 const _baseProps = computed(() => {
   const { disabled, label, errorMessage } = props
   return {
@@ -112,7 +148,7 @@ const _baseProps = computed(() => {
     'data-has-label': !!label,
     'data-focus': focused.value,
     'data-filled': isFilled.value,
-    'data-filled-within': isFilledWithin.value || hasPlaceholder.value || Boolean(inputValue.value),
+    'data-filled-within': isFilledWithin.value || !!slots.prefix || hasPlaceholder.value || Boolean(inputValue.value),
     'data-invalid': !!errorMessage,
   }
 })
@@ -133,17 +169,19 @@ const _inputWrapperProps = computed(() => {
 })
 
 const _inputProps = computed(() => {
-  const { disabled, placeholder, readonly, required } = props
+  const { disabled, placeholder, readonly, required, maxlength, minlength } = props
   return {
     'ref': _inputRef,
     disabled,
     placeholder,
     readonly,
     required,
+    minlength,
+    maxlength,
     'data-filled': isFilled.value,
     'data-filled-within': isFilledWithin.value,
     'data-has-prefix': !!slots.prefix,
-    'data-has-suffix': !!slots.suffix,
+    'data-has-suffix': isSuffixVisible.value,
     'aria-readonly': readonly,
     'aria-required': required,
   }
@@ -299,9 +337,15 @@ defineExpose({
             @change="handleChange"
             @input="handleInput"
           >
-          <!-- TODO: use more flexable slot -->
-          <slot name="suffix">
+          <slot v-if="isSuffixVisible" name="suffix">
             <span
+              v-if="isWordLimitVisible"
+              :class="[styleSlots.limit()]"
+            >
+              {{ inputValue.length }} / {{ maxlength }}
+            </span>
+            <span
+              v-if="isClearVisible"
               v-bind="_endButtonProps"
               :class="[styleSlots.button(), styleSlots.clearButton()]"
               @click="handleClear"
@@ -309,6 +353,7 @@ defineExpose({
               <CloseFilledIcon />
             </span>
             <span
+              v-if="isPasswordVisible"
               v-bind="_endButtonProps"
               :class="[styleSlots.button(), styleSlots.passwordButton()]"
               @click="togglePasswordVisible"

@@ -26,17 +26,9 @@ const input = tv({
       'data-[has-suffix=true]:pe-1.5',
     ],
     button: [
-      'p-2',
-      '-m-2',
-      'z-10',
-      'absolute',
-      'right-3',
-      'rtl:right-auto',
-      'rtl:left-3',
       'appearance-none',
       'outline-none',
       'select-none',
-      'opacity-0',
       'hover:!opacity-100',
       'cursor-pointer',
       'active:!opacity-70',
@@ -51,6 +43,7 @@ const input = tv({
     ],
     errorMessage: 'text-tiny text-danger',
     errorWrapper: 'hidden flex p-1 relative flex-col gap-1.5',
+    limit: 'text-xs text-foreground-500 flex-shrink-0',
   },
   variants: {
     variant: {
@@ -143,14 +136,14 @@ const input = tv({
       'inside': {
         label: 'text-tiny cursor-text',
         inputWrapper: 'flex-col items-start justify-center gap-0',
-        innerWrapper: 'group-data-[has-label=true]:items-end',
+        innerWrapper: 'group-data-[filled=true]:items-end group-data-[focus=true]:items-end',
       },
     },
     labelAlwaysFloat: {
       true: {
         label: 'relative',
         inputWrapper: '!h-auto',
-        innerWrapper: 'items-start group-data-[has-label=true]:items-start',
+        innerWrapper: 'items-center group-data-[has-label=true]:items-center',
         input: 'resize-none data-[hide-scroll=true]:scrollbar-hide',
       },
     },
@@ -209,18 +202,20 @@ const input = tv({
       true: {
         label: '!text-danger',
         input: '!placeholder:text-danger !text-danger',
+        button: '!text-danger',
       },
     },
     clearable: {
       true: {
-        input: 'peer pr-6 rtl:pr-0 rtl:pl-6',
+        input: 'peer',
         clearButton: 'peer-data-[filled=true]:opacity-70 peer-data-[filled=true]:block',
+        limit: 'peer-data-[filled=true]:pe-1.5',
       },
     },
     password: {
       true: {
-        input: 'peer pr-6 rtl:pr-0 rtl:pl-6',
-        passwordButton: 'opacity-70 block',
+        input: 'peer',
+        passwordButton: 'peer-data-[filled=true]:opacity-70 peer-data-[filled=true]:block',
         clearButton: '!hidden',
       },
     },
