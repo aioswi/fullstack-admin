@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref } from 'vue'
-import { spinner } from '@ciao/theme'
+import { spinner } from '@ciaoui/theme'
 import type { SpinnerColors, SpinnerSizes } from './spinner'
 
 const props = defineProps({

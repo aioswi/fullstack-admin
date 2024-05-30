@@ -1,4 +1,4 @@
-import type { ButtonVariantProps } from '@ciao/theme'
+import type { ButtonVariantProps } from '@ciaoui/theme'
 
 export type ButtonColors = ButtonVariantProps['color']
 

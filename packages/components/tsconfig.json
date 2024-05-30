@@ -1,5 +1,5 @@
 {
-  "extends": "@ciao/tsconfig/vue.json",
+  "extends": "@ciaoui/tsconfig/vue.json",
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "dist"

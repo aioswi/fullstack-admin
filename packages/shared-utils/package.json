@@ -1,12 +1,12 @@
 {
-  "name": "@ciao/shared-utils",
+  "name": "@ciaoui/shared-utils",
   "version": "0.0.0",
   "description": "",
-  "license": "MIT",
   "author": "devswi <stayfocusjs@gmail.com>",
+  "license": "MIT",
   "main": "src/index.ts",
   "devDependencies": {
-    "@ciao/tsconfig": "workspace:^",
+    "@ciaoui/tsconfig": "workspace:^",
     "typescript": "^5.2.2"
   }
 }

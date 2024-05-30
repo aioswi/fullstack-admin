@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { commonColors } from '@ciao/theme'
+import { commonColors } from '@ciaoui/theme'
 import ColorPlate from './ColorPlate.vue'
 
 const meta = {
@@ -10,6 +10,7 @@ const meta = {
       control: false,
     },
   },
+  tags: ['!autodocs'],
 } as Meta<typeof ColorPlate>
 
 export default meta

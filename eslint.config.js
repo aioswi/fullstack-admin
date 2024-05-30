@@ -6,14 +6,17 @@ export default antfu({
   vue: {
     overrides: {
       'no-undef': 'off',
-      'vue/max-attributes-per-line': ['error', {
-        singleline: {
-          max: 2,
+      'vue/max-attributes-per-line': [
+        'error',
+        {
+          singleline: {
+            max: 2,
+          },
+          multiline: {
+            max: 1,
+          },
         },
-        multiline: {
-          max: 1,
-        },
-      }],
+      ],
     },
   },
   formatters: {

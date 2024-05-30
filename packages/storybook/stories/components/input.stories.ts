@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { input } from '@ciao/theme'
-import { Input } from '@ciao/uikit'
+import { input } from '@ciaoui/theme'
+import { Input } from '@ciaoui/uikit'
 import { h } from 'vue'
 
 const meta = {
@@ -61,7 +61,6 @@ const defaultProps: InstanceType<typeof Input>['$props'] & { readonly: boolean }
 
 export const Default: Story = {
   args: {
-    label: 'Username',
     ...defaultProps,
   },
 }
@@ -195,3 +194,13 @@ export const PrefixAndSuffix: Story = {
     modelValue: 'github',
   },
 }
+
+// export const UseVModel: Story = {
+//   name: 'Use v-model',
+//   // render: UseVModelTemplate,
+//   args: {
+//     ...defaultProps,
+//     label: 'Email',
+//     placeholder: 'Enter your email',
+//   },
+// }

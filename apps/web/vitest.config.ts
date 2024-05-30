@@ -17,7 +17,7 @@ export default defineProject({
     alias: {
       '@': new URL('./', import.meta.url).pathname,
       '~': new URL('./', import.meta.url).pathname,
-      '@ciao/uikit': new URL('../../packages/components/src', import.meta.url).pathname,
+      '@ciaoui/uikit': new URL('../../packages/components/src', import.meta.url).pathname,
     },
   },
   test: {

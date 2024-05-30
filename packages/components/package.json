@@ -1,5 +1,5 @@
 {
-  "name": "@ciao/uikit",
+  "name": "@ciaoui/uikit",
   "type": "module",
   "version": "1.0.0",
   "description": "",
@@ -19,12 +19,12 @@
     "vue": ">=3"
   },
   "dependencies": {
-    "@ciao/shared-utils": "workspace:^",
-    "@ciao/theme": "workspace:^",
+    "@ciaoui/shared-utils": "workspace:^",
+    "@ciaoui/theme": "workspace:^",
     "@vueuse/core": "^10.9.0"
   },
   "devDependencies": {
-    "@ciao/tsconfig": "workspace:*",
+    "@ciaoui/tsconfig": "workspace:*",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/test-utils": "^2.4.6",
     "jsdom": "^24.0.0",

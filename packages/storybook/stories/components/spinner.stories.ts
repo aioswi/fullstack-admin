@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { spinner } from '@ciao/theme'
-import { Spinner } from '@ciao/uikit'
+import { spinner } from '@ciaoui/theme'
+import { Spinner } from '@ciaoui/uikit'
 import { h } from 'vue'
 
 const meta = {

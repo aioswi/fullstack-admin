@@ -1,17 +1,19 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { computed, ref } from 'vue'
-import { button } from '@ciao/theme'
+import { button } from '@ciaoui/theme'
 import { useElementHover, useMousePressed } from '@vueuse/core'
 import Ripple, { useRipple } from '../../ripple'
 import Spinner, { type SpinnerSizes } from '../../spinner'
 import type { ButtonColors, ButtonRadius, ButtonSizes, ButtonVariants } from './button'
 
 const props = defineProps({
+  /** determine if the button is loading */
   loading: {
     type: Boolean,
     default: false,
   },
+  /** define the style of the button */
   color: {
     type: String as PropType<ButtonColors>,
     default: 'default',
@@ -24,6 +26,7 @@ const props = defineProps({
     type: String as PropType<ButtonVariants>,
     default: 'solid',
   },
+  /** disable the button */
   disabled: {
     type: Boolean,
   },

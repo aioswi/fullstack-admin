@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import { computed, ref, useSlots, watch } from 'vue'
-import { input } from '@ciao/theme'
-import { isEmpty, isString } from '@ciao/shared-utils'
+import { input } from '@ciaoui/theme'
+import { isEmpty, isString } from '@ciaoui/shared-utils'
 import { useElementHover, useFocus, useFocusWithin } from '@vueuse/core'
 import { CloseFilledIcon, EyeFilledIcon, EyeSlashFilledIcon } from '../../icons'
 import type {

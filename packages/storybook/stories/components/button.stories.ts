@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { button } from '@ciao/theme'
-import { Button } from '@ciao/uikit'
+import { button } from '@ciaoui/theme'
+import { Button } from '@ciaoui/uikit'
 
 const meta = {
   title: 'Components/Button',
   component: Button,
+  tags: ['autodocs'],
   argTypes: {
     size: {
       control: 'select',

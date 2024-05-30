@@ -1,5 +1,5 @@
 import type { Config } from 'tailwindcss'
-import { ciaoui } from '@ciao/theme'
+import { ciaoui } from '@ciaoui/theme'
 
 export default <Partial<Config>>{
   content: [

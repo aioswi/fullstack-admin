@@ -13,9 +13,9 @@
     "lint:fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@ciao/theme": "workspace:^",
-    "@ciao/tsconfig": "workspace:*",
-    "@ciao/uikit": "workspace:^",
+    "@ciaoui/theme": "workspace:^",
+    "@ciaoui/tsconfig": "workspace:*",
+    "@ciaoui/uikit": "workspace:^",
     "@nuxt/devtools": "latest",
     "@nuxtjs/color-mode": "^3.4.1",
     "@nuxtjs/tailwindcss": "^6.12.0",

@@ -1,4 +1,4 @@
-import type { InputVariantProps } from '@ciao/theme'
+import type { InputVariantProps } from '@ciaoui/theme'
 
 export type InputVariants = InputVariantProps['variant']
 

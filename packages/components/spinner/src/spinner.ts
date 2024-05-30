@@ -1,4 +1,4 @@
-import type { SpinnerVariantProps } from '@ciao/theme'
+import type { SpinnerVariantProps } from '@ciaoui/theme'
 
 export type SpinnerSizes = SpinnerVariantProps['size']
 
