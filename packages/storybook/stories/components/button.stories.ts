@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { action } from '@storybook/addon-actions'
 import { button } from '@ciaoui/theme'
 import { Button } from '@ciaoui/uikit'
 
@@ -35,6 +36,9 @@ const meta = {
     loading: {
       control: 'boolean',
     },
+  },
+  args: {
+    onClick: action('click'),
   },
 } satisfies Meta<typeof Button>
 

@@ -217,6 +217,7 @@ const input = tv({
         input: 'peer',
         passwordButton: 'peer-data-[filled=true]:opacity-70 peer-data-[filled=true]:block',
         clearButton: '!hidden',
+        limit: 'peer-data-[filled=true]:pe-1.5',
       },
     },
     readonly: {

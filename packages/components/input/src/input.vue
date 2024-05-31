@@ -57,7 +57,7 @@ const props = defineProps({
   placeholder: {
     type: String,
   },
-  /** @description label always float */
+  /** label always float */
   labelAlwaysFloat: {
     type: Boolean,
   },
@@ -70,15 +70,15 @@ const props = defineProps({
   validation: {
     type: [String, Function] as PropType<string | ((value: string) => string)>,
   },
-  /** @description use password input type */
+  /** use password input type */
   password: {
     type: Boolean,
   },
-  /** @description native min length */
+  /** native min length */
   minlength: {
     type: Number,
   },
-  /** @description native max length */
+  /** native max length */
   maxlength: {
     type: Number,
   },
@@ -87,7 +87,7 @@ const props = defineProps({
   },
 })
 
-const emits = defineEmits({
+const emit = defineEmits({
   'update:modelValue': (value: string) => isString(value),
   'input': (value: string) => isString(value),
   'clear': () => true,
@@ -124,14 +124,14 @@ const isWordLimitVisible = computed(() =>
   props.showWordLimit
   && !!props.maxlength
   && !props.disabled
-  && !props.readonly
-  && !isPasswordVisible.value,
+  && !props.readonly,
 )
 
 const isClearVisible = computed(() =>
   props.clearable
   && !props.disabled
-  && !props.readonly,
+  && !props.readonly
+  && !props.password,
 )
 
 const isSuffixVisible = computed(() =>
@@ -200,7 +200,9 @@ const _inputProps = computed(() => {
 })
 
 const _endButtonProps = computed(() => {
+  const id = isPasswordVisible.value ? 'pwd' : 'clear'
   return {
+    id: `ciao-${id}-btn`,
     role: 'button',
     tabIndex: 0,
   }
@@ -256,19 +258,21 @@ function handleFocusInput(e: MouseEvent) {
 
 function handleInput(e: Event) {
   const { value } = e.target as HTMLInputElement
-  emits('update:modelValue', value)
-  emits('input', value)
+  emit('update:modelValue', value)
+  emit('input', value)
 }
 
 function handleClear() {
   inputValue.value = ''
 
-  emits('update:modelValue', '')
-  emits('clear')
+  emit('update:modelValue', '')
+  emit('change', '')
+  emit('clear')
+  emit('input', '')
 }
 
 function handleChange(e: Event) {
-  emits('change', (e.target as HTMLInputElement).value)
+  emit('change', (e.target as HTMLInputElement).value)
 }
 
 function togglePasswordVisible() {
@@ -285,10 +289,10 @@ function focus() {
 
 function clear() {
   inputValue.value = ''
-  emits('update:modelValue', '')
-  emits('change', '')
-  emits('clear')
-  emits('input', '')
+  emit('update:modelValue', '')
+  emit('change', '')
+  emit('clear')
+  emit('input', '')
 }
 
 watch(() => props.password, (val) => {
@@ -343,8 +347,8 @@ defineExpose({
             v-model="inputValue"
             :class="styleSlots.input()"
             :type="passwordVisible ? 'text' : 'password'"
-            @blur="(e) => emits('blur', e)"
-            @focus="(e) => emits('focus', e)"
+            @blur="(e) => emit('blur', e)"
+            @focus="(e) => emit('focus', e)"
             @change="handleChange"
             @input="handleInput"
           >

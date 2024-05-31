@@ -48,7 +48,24 @@ const meta = {
       control: 'text',
     },
   },
+  decorators: [
+    () => {
+      return {
+        template: '<div class="w-full flex justify-center"><story /></div>',
+      }
+    },
+  ],
 } satisfies Meta<typeof Input>
+
+function NormalTemplate(args: any) {
+  return {
+    components: { Input },
+    setup() {
+      return { args }
+    },
+    template: '<div class="w-full max-w-lg mt-12"><Input v-bind="args" /></div>',
+  }
+}
 
 export default meta
 
@@ -60,12 +77,65 @@ const defaultProps: InstanceType<typeof Input>['$props'] & { readonly: boolean }
 }
 
 export const Default: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
   },
 }
 
+export const LabelPlacement: Story = {
+  args: {
+    ...defaultProps,
+    label: 'Email',
+  },
+  render: args => ({
+    components: { Input },
+    setup() {
+      return { args }
+    },
+    template: `
+      <div class="w-full flex flex-col items-center gap-12">
+        <div class="flex flex-col gap-4">
+          <h3>Without placeholder</h3>
+          <div class="w-full max-w-3xl grid grid-cols-3 items-end gap-4">
+            <div class="flex flex-col gap-2">
+              <Input v-bind="args" labelPlacement="inside" />
+              <span class="text-default-400 text-sm">inside</span>
+            </div>
+            <div class="flex flex-col gap-2">
+              <Input v-bind="args" labelPlacement="outside" />
+              <span class="text-default-400 text-sm">outside</span>
+            </div>
+            <div class="flex flex-col gap-2">
+              <Input v-bind="args" labelPlacement="outside-left" />
+              <span class="text-default-400 text-sm">outside-left</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col gap-4">
+          <h3>With placeholder</h3>
+          <div class="w-full max-w-3xl grid grid-cols-3 items-end gap-4">
+            <div class="flex flex-col gap-2">
+              <Input v-bind="args" labelPlacement="inside" placeholder="Please enter your email" />
+              <span class="text-default-400 text-sm">inside</span>
+            </div>
+            <div class="flex flex-col gap-2">
+              <Input v-bind="args" labelPlacement="outside" placeholder="Please enter your email" />
+              <span class="text-default-400 text-sm">outside</span>
+            </div>
+            <div class="flex flex-col gap-2">
+              <Input v-bind="args" labelPlacement="outside-left" placeholder="Please enter your email"/>
+              <span class="text-default-400 text-sm">outside-left</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+  }),
+}
+
 export const Required: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     label: 'Email',
@@ -75,6 +145,7 @@ export const Required: Story = {
 }
 
 export const Disabled: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     disabled: true,
@@ -85,6 +156,7 @@ export const Disabled: Story = {
 }
 
 export const WithoutLabel: Story = {
+  render: NormalTemplate,
   args: {
     label: '',
     placeholder: 'Enter your username',
@@ -92,6 +164,7 @@ export const WithoutLabel: Story = {
 }
 
 export const DisableAnimation: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     disableAnimation: true,
@@ -100,6 +173,7 @@ export const DisableAnimation: Story = {
 }
 
 export const Clearable: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     clearable: true,
@@ -110,6 +184,7 @@ export const Clearable: Story = {
 }
 
 export const Password: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     password: true,
@@ -121,6 +196,7 @@ export const Password: Story = {
 }
 
 export const Invalid: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     invalid: true,
@@ -131,6 +207,7 @@ export const Invalid: Story = {
 }
 
 export const Validation: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     label: 'Username',
@@ -143,6 +220,7 @@ export const Validation: Story = {
 }
 
 export const ValidationWithFunction: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     label: 'Email',
@@ -162,6 +240,7 @@ export const ValidationWithFunction: Story = {
 }
 
 export const Prefix: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     label: 'Github',
@@ -173,6 +252,7 @@ export const Prefix: Story = {
 }
 
 export const Suffix: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     label: 'Price',
@@ -184,6 +264,7 @@ export const Suffix: Story = {
 }
 
 export const PrefixAndSuffix: Story = {
+  render: NormalTemplate,
   args: {
     ...defaultProps,
     label: 'Website',
@@ -195,12 +276,16 @@ export const PrefixAndSuffix: Story = {
   },
 }
 
-// export const UseVModel: Story = {
-//   name: 'Use v-model',
-//   // render: UseVModelTemplate,
-//   args: {
-//     ...defaultProps,
-//     label: 'Email',
-//     placeholder: 'Enter your email',
-//   },
-// }
+export const LimitWordLength: Story = {
+  render: NormalTemplate,
+  args: {
+    ...defaultProps,
+    label: 'Password',
+    labelPlacement: 'inside',
+    variant: 'bordered',
+    password: true,
+    showWordLimit: true,
+    minlength: 6,
+    maxlength: 20,
+  },
+}
