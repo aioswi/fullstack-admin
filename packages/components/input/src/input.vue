@@ -202,9 +202,9 @@ const _inputProps = computed(() => {
 const _endButtonProps = computed(() => {
   const id = isPasswordVisible.value ? 'pwd' : 'clear'
   return {
-    id: `ciao-${id}-btn`,
-    role: 'button',
-    tabIndex: 0,
+    'data-testid': `ciao-${id}-btn`,
+    'role': 'button',
+    'tabIndex': 0,
   }
 })
 
@@ -355,6 +355,7 @@ defineExpose({
           <slot v-if="isSuffixVisible" name="suffix">
             <span
               v-if="isWordLimitVisible"
+              data-testid="word-limit"
               :class="[styleSlots.limit()]"
             >
               {{ inputValue.length }} / {{ maxlength }}

@@ -12,12 +12,9 @@ describe('input', () => {
   })
 
   it('should render correctly', () => {
-    const wrapper = mount(Input, {
-      props: {
-        label: 'Email',
-        placeholder: 'Please enter your email',
-      },
-    })
+    const wrapper = mount(() => (
+      <Input label="Email" placeholder="Please enter your email" />
+    ))
 
     const inputElm = wrapper.find('input')
     const nativeInput = inputElm.element
@@ -40,39 +37,32 @@ describe('input', () => {
   })
 
   it('should be disabled', () => {
-    const wrapper = mount(Input, {
-      props: {
-        disabled: true,
-      },
-    })
+    const wrapper = mount(() => (
+      <Input disabled />
+    ))
     const inputElm = wrapper.find('input')
     expect(inputElm.attributes('disabled')).toBeDefined()
   })
 
   it('should be readonly', () => {
-    const wrapper = mount(Input, {
-      props: {
-        readonly: true,
-      },
-    })
+    const wrapper = mount(() => (
+      <Input readonly />
+    ))
     const inputElm = wrapper.find('input')
     expect(inputElm.attributes('readonly')).toBeDefined()
   })
 
   it('should show password button', async () => {
-    const wrapper = mount(Input, {
-      props: {
-        modelValue: '123456',
-        password: true,
-      },
-    })
+    const wrapper = mount(() => (
+      <Input modelValue="123456" password />
+    ))
 
     const inputEle = wrapper.find('input')
     const native = inputEle.element
 
     expect(native.type).toBe('password')
 
-    const pwd = wrapper.find('#ciao-pwd-btn')
+    const pwd = wrapper.find('[data-testid="ciao-pwd-btn"]')
     expect(pwd.exists()).toBe(true)
 
     await pwd.trigger('click')
@@ -80,18 +70,29 @@ describe('input', () => {
   })
 
   it('should limit input and show word count', async () => {
-    const wrapper = mount(Input, {
-      props: {
-        modelValue: '12345',
-        maxlength: 5,
-        showWordLimit: true,
-      },
-    })
-    const inputEle = wrapper.find('input')
-    const native = inputEle.element
+    const input = ref('')
+    const showWordLimit = ref(false)
 
+    const wrapper = mount(() => (
+      <Input v-model={input.value} maxlength={5} showWordLimit={showWordLimit.value} />
+    ))
+
+    const id = '[data-testid="word-limit"]'
+
+    expect(wrapper.find(id).exists()).toBeFalsy()
+
+    showWordLimit.value = true
+    await wrapper.vm.$nextTick()
+    expect(wrapper.find(id).exists()).toBe(true)
+    expect(wrapper.find(id).text()).toEqual('0 / 5')
+
+    const inputEle = wrapper.find('input')
+    const nativeInput = inputEle.element
+
+    nativeInput.value = '1234'
     await inputEle.trigger('input')
-    expect(native.value).toBe('12345')
+    await nextTick()
+    expect(wrapper.find(id).text()).toBe('4 / 5')
   })
 
   describe('input events', () => {
@@ -100,13 +101,10 @@ describe('input', () => {
 
     it('event:focus & blur', async () => {
       const content = ref('')
-      const wrapper = mount(Input, {
-        props: {
-          onBlur: handleBlur,
-          onFocus: handleFocus,
-          modelValue: content.value,
-        },
-      })
+
+      const wrapper = mount(() => (
+        <Input v-model={content.value} onBlur={handleBlur} onFocus={handleFocus} />
+      ))
 
       const input = wrapper.find('input')
 
@@ -151,18 +149,12 @@ describe('input', () => {
       const handleClear = vi.fn()
       const handleInput = vi.fn()
 
-      const wrapper = mount(Input, {
-        props: {
-          'modelValue': content.value,
-          'onUpdate:modelValue': e => content.value = e,
-          'clearable': true,
-          'onClear': handleClear,
-          'onInput': handleInput,
-        },
-      })
+      const wrapper = mount(() => (
+        <Input v-model={content.value} clearable onClear={handleClear} onInput={handleInput} />
+      ))
 
       // find clear button
-      const clear = wrapper.find('#ciao-clear-btn')
+      const clear = wrapper.find('[data-testid="ciao-clear-btn"]')
       await clear.trigger('click')
       expect(clear.exists()).toBe(true)
       // click clear button
@@ -175,12 +167,9 @@ describe('input', () => {
       const content = ref('hello')
       const handleInput = vi.fn()
 
-      const wrapper = mount(Input, {
-        props: {
-          modelValue: content.value,
-          onInput: handleInput,
-        },
-      })
+      const wrapper = mount(() => (
+        <Input v-model={content.value} onInput={handleInput} />
+      ))
 
       const inputEle = wrapper.find('input')
       const native = inputEle.element
@@ -191,7 +180,7 @@ describe('input', () => {
       await inputEle.trigger('input')
 
       expect(handleInput).toBeCalledTimes(2)
-      expect(content.value).toBe('hello')
+      expect(content.value).toBe('2')
       expect(native.value).toBe('2')
     })
   })

@@ -14,10 +14,10 @@ const config: StorybookConfig = {
         docs: false,
       },
     },
+    getAbsolutePath('@storybook/addon-actions'),
     getAbsolutePath('@storybook/addon-interactions'),
     getAbsolutePath('storybook-dark-mode'),
     getAbsolutePath('@storybook/addon-links'),
-    getAbsolutePath('@storybook/addon-actions'),
     {
       name: '@storybook/addon-docs',
       options: {

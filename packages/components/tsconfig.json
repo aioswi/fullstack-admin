@@ -1,11 +1,7 @@
 {
   "extends": "@ciaoui/tsconfig/vue.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "outDir": "dist"
-  },
-  "include": [
-    "./**/*.ts",
-    "./**/*.vue"
-  ]
+    "jsx": "preserve",
+    "baseUrl": "."
+  }
 }
