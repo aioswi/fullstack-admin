@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { action } from '@storybook/addon-actions'
 import { button } from '@ciaoui/theme'
-import { Button } from '@ciaoui/uikit'
+
+import Button from '../src/button.vue'
 
 const meta = {
   title: 'Components/Button',

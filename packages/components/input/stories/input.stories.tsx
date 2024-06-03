@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { input } from '@ciaoui/theme'
-import { Input } from '@ciaoui/uikit'
 import { h } from 'vue'
+
+import Input from '../src/input.vue'
 
 const meta = {
   title: 'Components/Input',
@@ -63,7 +64,7 @@ function NormalTemplate(args: any) {
     setup() {
       return { args }
     },
-    template: '<div class="w-full max-w-lg mt-12"><Input v-bind="args" /></div>',
+    template: '<div class="w-full max-w-lg"><Input v-bind="args" /></div>',
   }
 }
 
@@ -88,50 +89,50 @@ export const LabelPlacement: Story = {
     ...defaultProps,
     label: 'Email',
   },
-  render: args => ({
-    components: { Input },
-    setup() {
-      return { args }
-    },
-    template: `
-      <div class="w-full flex flex-col items-center gap-12">
-        <div class="flex flex-col gap-4">
-          <h3>Without placeholder</h3>
-          <div class="w-full max-w-3xl grid grid-cols-3 items-end gap-4">
-            <div class="flex flex-col gap-2">
-              <Input v-bind="args" labelPlacement="inside" />
-              <span class="text-default-400 text-sm">inside</span>
+  render(args) {
+    return {
+      setup() {
+        return () => (
+          <div class="w-full flex flex-col items-center gap-12">
+            <div class="flex flex-col gap-4">
+              <h3>Without placeholder</h3>
+              <div class="w-full max-w-3xl grid grid-cols-3 items-end gap-4">
+                <div class="flex flex-col gap-2">
+                  <Input {...args} labelPlacement="inside"></Input>
+                  <span class="text-default-400 text-sm">inside</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <Input {...args} labelPlacement="outside"></Input>
+                  <span class="text-default-400 text-sm">outside</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <Input {...args} labelPlacement="outside-left"></Input>
+                  <span class="text-default-400 text-sm">outside-left</span>
+                </div>
+              </div>
             </div>
-            <div class="flex flex-col gap-2">
-              <Input v-bind="args" labelPlacement="outside" />
-              <span class="text-default-400 text-sm">outside</span>
-            </div>
-            <div class="flex flex-col gap-2">
-              <Input v-bind="args" labelPlacement="outside-left" />
-              <span class="text-default-400 text-sm">outside-left</span>
+            <div class="flex flex-col gap-4">
+              <h3>With placeholder</h3>
+              <div class="w-full max-w-3xl grid grid-cols-3 items-end gap-4">
+                <div class="flex flex-col gap-2">
+                  <Input {...args} labelPlacement="inside" placeholder="Please enter your email"></Input>
+                  <span class="text-default-400 text-sm">inside</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <Input {...args} color={args.color} labelPlacement="outside" placeholder="Please enter your email"></Input>
+                  <span class="text-default-400 text-sm">outside</span>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <Input {...args} labelPlacement="outside-left" placeholder="Please enter your email"></Input>
+                  <span class="text-default-400 text-sm">outside-left</span>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="flex flex-col gap-4">
-          <h3>With placeholder</h3>
-          <div class="w-full max-w-3xl grid grid-cols-3 items-end gap-4">
-            <div class="flex flex-col gap-2">
-              <Input v-bind="args" labelPlacement="inside" placeholder="Please enter your email" />
-              <span class="text-default-400 text-sm">inside</span>
-            </div>
-            <div class="flex flex-col gap-2">
-              <Input v-bind="args" labelPlacement="outside" placeholder="Please enter your email" />
-              <span class="text-default-400 text-sm">outside</span>
-            </div>
-            <div class="flex flex-col gap-2">
-              <Input v-bind="args" labelPlacement="outside-left" placeholder="Please enter your email"/>
-              <span class="text-default-400 text-sm">outside-left</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    `,
-  }),
+        )
+      },
+    }
+  },
 }
 
 export const Required: Story = {

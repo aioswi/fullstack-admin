@@ -5,6 +5,7 @@ const config: StorybookConfig = {
   stories: [
     '../stories/**/*.mdx',
     '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)',
+    '../../components/**/*.stories.@(js|jsx|mjs|ts|tsx)',
   ],
   staticDirs: ['../public'],
   addons: [
@@ -30,7 +31,6 @@ const config: StorybookConfig = {
         },
       },
     },
-    '@chromatic-com/storybook',
   ],
   framework: {
     name: getAbsolutePath('@storybook/vue3-vite'),
