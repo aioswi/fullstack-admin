@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { input } from '@ciaoui/theme'
-import { h } from 'vue'
 
 import Input from '../src/input.vue'
 
@@ -241,39 +240,81 @@ export const ValidationWithFunction: Story = {
 }
 
 export const Prefix: Story = {
-  render: NormalTemplate,
   args: {
     ...defaultProps,
     label: 'Github',
     labelPlacement: 'outside',
     variant: 'bordered',
-    prefix: h('span', { class: 'text-default-400 text-sm' }, 'https://'),
     placeholder: 'github.com',
+  },
+  render(args) {
+    return {
+      name: 'Input',
+      setup() {
+        return () => (
+          <div>
+            <Input {...args}>
+              {{
+                prefix: () => (<span class="text-default-400 text-sm">https://</span>),
+              }}
+            </Input>
+          </div>
+        )
+      },
+    }
   },
 }
 
 export const Suffix: Story = {
-  render: NormalTemplate,
   args: {
     ...defaultProps,
-    label: 'Price',
+    label: 'Length',
     labelPlacement: 'outside',
     variant: 'bordered',
-    suffix: h('span', { class: 'text-default-400 text-sm' }, '$'),
-    modelValue: '0.00',
+    modelValue: '10.00',
+  },
+  render(args) {
+    return {
+      name: 'Input',
+      setup() {
+        return () => (
+          <div>
+            <Input {...args}>
+              {{
+                suffix: () => (<span class="text-default-400 text-sm">cm</span>),
+              }}
+            </Input>
+          </div>
+        )
+      },
+    }
   },
 }
 
 export const PrefixAndSuffix: Story = {
-  render: NormalTemplate,
   args: {
     ...defaultProps,
     label: 'Website',
     labelPlacement: 'inside',
     variant: 'bordered',
-    prefix: h('span', { class: 'text-default-400 text-sm' }, 'https://'),
-    suffix: h('span', { class: 'text-default-400 text-sm' }, '.com'),
     modelValue: 'github',
+  },
+  render(args) {
+    return {
+      name: 'Input',
+      setup() {
+        return () => (
+          <div>
+            <Input {...args}>
+              {{
+                prefix: () => (<span class="text-default-400 text-sm">https://</span>),
+                suffix: () => (<span class="text-default-400 text-sm">.com</span>),
+              }}
+            </Input>
+          </div>
+        )
+      },
+    }
   },
 }
 
