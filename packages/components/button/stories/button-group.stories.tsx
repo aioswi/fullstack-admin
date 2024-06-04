@@ -7,7 +7,7 @@ import Button from '../src/button.vue'
 const meta = {
   title: 'Components/ButtonGroup',
   component: ButtonGroup,
-  tags: ['autodocs'],
+  tags: ['!autodocs'],
   argTypes: {
     size: {
       control: 'select',
