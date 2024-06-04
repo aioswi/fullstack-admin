@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
-import { computed, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { button } from '@ciaoui/theme'
 import { useElementHover, useMousePressed } from '@vueuse/core'
 import Ripple, { useRipple } from '../../ripple'
 import Spinner, { type SpinnerSizes } from '../../spinner'
+import { buttonGroupContextKey } from './constants'
 import type { ButtonColors, ButtonRadius, ButtonSizes, ButtonVariants } from './button'
 
 const props = defineProps({
@@ -16,7 +17,6 @@ const props = defineProps({
   /** define the style of the button */
   color: {
     type: String as PropType<ButtonColors>,
-    default: 'default',
   },
   size: {
     type: String as PropType<ButtonSizes>,
@@ -24,7 +24,6 @@ const props = defineProps({
   },
   variant: {
     type: String as PropType<ButtonVariants>,
-    default: 'solid',
   },
   /** disable the button */
   disabled: {
@@ -47,6 +46,8 @@ const emit = defineEmits({
   click: (evt: MouseEvent) => evt instanceof MouseEvent,
 })
 
+const buttonGroupContext = inject(buttonGroupContextKey, null)
+
 const _ref = ref<HTMLButtonElement>()
 
 const { ripples, onClick: onRippleClick, onClear: onRippleClear } = useRipple()
@@ -55,22 +56,26 @@ const { pressed } = useMousePressed({ target: _ref })
 
 const hovered = useElementHover(_ref)
 
-const _disabled = computed(() => {
-  const { disabled, loading } = props
-  return disabled || loading
-})
+const _disabled = computed(() => buttonGroupContext?.disabled || props.disabled || props.loading)
+const _size = computed(() => buttonGroupContext?.size || props.size)
+const _color = computed(() => props.color ?? buttonGroupContext?.color ?? 'default')
+const _variant = computed(() => props.variant ?? buttonGroupContext?.variant ?? 'solid')
+const _radius = computed(() => buttonGroupContext?.radius ?? props.radius)
+const _disableAnimation = computed(() => buttonGroupContext?.disableAnimation ?? props.disableAnimation)
+const _rippled = computed(() => buttonGroupContext?.rippled ?? props.rippled)
 
-const styles = computed(() => {
-  const { size, color, variant, disableAnimation, radius } = props
-  return button({
-    size,
-    color,
-    variant,
-    radius,
-    disabled: _disabled.value,
-    disableAnimation,
-  })
-})
+const isInGroup = computed(() => !!buttonGroupContext)
+
+const styles = computed(() => button({
+  size: _size.value,
+  color: _color.value,
+  variant: _variant.value,
+  radius: _radius.value,
+  disabled: _disabled.value,
+  disableAnimation: _disableAnimation.value,
+  isInGroup: isInGroup.value,
+}),
+)
 
 const _props = computed(() => {
   const disabled = _disabled.value
@@ -93,8 +98,7 @@ const spinnerSize = computed(() => {
 })
 
 function handleClick(evt: MouseEvent) {
-  const { disabled, disableAnimation, rippled } = props
-  if (rippled && !disabled && !disableAnimation)
+  if (_rippled.value && !_disabled.value && !_disableAnimation.value)
     onRippleClick(evt)
   emit('click', evt)
 }
@@ -124,7 +128,7 @@ defineExpose({
     </template>
     <slot>Button</slot>
     <Ripple
-      v-if="rippled"
+      v-if="_rippled"
       :ripples="ripples"
       @clear="onRippleClear"
     />

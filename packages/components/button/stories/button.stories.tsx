@@ -39,7 +39,7 @@ const meta = {
     },
   },
   args: {
-    onClick: action('click'),
+    onClick: action('onClick'),
   },
 } satisfies Meta<typeof Button>
 

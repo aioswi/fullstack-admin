@@ -302,7 +302,6 @@ watch(() => props.password, (val) => {
 defineExpose({
   /** @description HTML element, input */
   ref: _inputRef,
-
   /** @description HTML input element native method */
   focus,
   /** @description HTML input element native method */

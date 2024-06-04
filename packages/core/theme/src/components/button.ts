@@ -1,7 +1,7 @@
 import type { VariantProps } from 'tailwind-variants'
 
 import { tv } from '../utils/tv'
-import { colorVariants, dataFocusVisibleClasses } from '../utils'
+import { collapseAdjacentVariantBorders, colorVariants, dataFocusVisibleClasses } from '../utils'
 
 const button = tv({
   base: [
@@ -60,7 +60,10 @@ const button = tv({
     disableAnimation: {
       true: '!transition-none',
       false:
-        'data-[pressed=true]:scale-[0.97] transition-transform-colors-opacity motion-reduce:transition-none',
+        'transition-transform-colors-opacity motion-reduce:transition-none',
+    },
+    isInGroup: {
+      true: '[&:not(:first-child):not(:last-child)]:rounded-none',
     },
   },
   defaultVariants: {
@@ -72,6 +75,12 @@ const button = tv({
     disableAnimation: false,
   },
   compoundVariants: [
+    // !disableAnimation / !isInGroup
+    {
+      disableAnimation: false,
+      isInGroup: false,
+      class: 'data-[pressed=true]:scale-[0.97]',
+    },
     // solid / color
     {
       variant: 'solid',
@@ -311,7 +320,6 @@ const button = tv({
     },
     {
       isInGroup: true,
-      isRounded: true,
       class: 'rounded-none first:rounded-s-full last:rounded-e-full',
     },
     // isInGroup / radius <-- radius provided
@@ -340,6 +348,49 @@ const button = tv({
       radius: 'full',
       class: 'rounded-none first:rounded-s-full last:rounded-e-full',
     },
+    // isInGroup / faded
+    {
+      isInGroup: true,
+      variant: 'faded',
+      className: collapseAdjacentVariantBorders.default,
+    },
+    // isInGroup / bordered / ghost
+    {
+      isInGroup: true,
+      variant: ['ghost', 'bordered'],
+      color: 'default',
+      className: collapseAdjacentVariantBorders.default,
+    },
+    {
+      isInGroup: true,
+      variant: ['ghost', 'bordered'],
+      color: 'primary',
+      className: collapseAdjacentVariantBorders.primary,
+    },
+    {
+      isInGroup: true,
+      variant: ['ghost', 'bordered'],
+      color: 'secondary',
+      className: collapseAdjacentVariantBorders.secondary,
+    },
+    {
+      isInGroup: true,
+      variant: ['ghost', 'bordered'],
+      color: 'success',
+      className: collapseAdjacentVariantBorders.success,
+    },
+    {
+      isInGroup: true,
+      variant: ['ghost', 'bordered'],
+      color: 'warning',
+      className: collapseAdjacentVariantBorders.warning,
+    },
+    {
+      isInGroup: true,
+      variant: ['ghost', 'bordered'],
+      color: 'danger',
+      className: collapseAdjacentVariantBorders.danger,
+    },
     // variant / hover
     {
       variant: ['solid', 'faded', 'flat', 'bordered', 'shadow'],
@@ -348,6 +399,11 @@ const button = tv({
   ],
 })
 
-export type ButtonVariantProps = VariantProps<typeof button>
+const buttonGroup = tv({
+  base: 'inline-flex items-center justify-center h-auto',
+})
 
-export { button }
+export type ButtonVariantProps = VariantProps<typeof button>
+export type ButtonGroupVariantProps = VariantProps<typeof buttonGroup>
+
+export { button, buttonGroup }
