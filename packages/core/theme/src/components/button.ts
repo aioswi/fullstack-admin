@@ -62,6 +62,10 @@ const button = tv({
       false:
         'transition-transform-colors-opacity motion-reduce:transition-none',
     },
+    onlyIcon: {
+      true: 'px-0 !gap-0',
+      false: '[&>svg]:max-w-[theme(spacing.8)]',
+    },
     isInGroup: {
       true: '[&:not(:first-child):not(:last-child)]:rounded-none',
     },
@@ -390,6 +394,21 @@ const button = tv({
       variant: ['ghost', 'bordered'],
       color: 'danger',
       className: collapseAdjacentVariantBorders.danger,
+    },
+    {
+      onlyIcon: true,
+      size: 'sm',
+      class: 'min-w-8 w-8 h-8',
+    },
+    {
+      onlyIcon: true,
+      size: 'md',
+      class: 'min-w-10 w-10 h-10',
+    },
+    {
+      onlyIcon: true,
+      size: 'lg',
+      class: 'min-w-12 w-12 h-12',
     },
     // variant / hover
     {

@@ -40,6 +40,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  onlyIcon: {
+    type: Boolean,
+    default: false,
+  },
 })
 
 const emit = defineEmits({
@@ -74,6 +78,7 @@ const styles = computed(() => button({
   disabled: _disabled.value,
   disableAnimation: _disableAnimation.value,
   isInGroup: isInGroup.value,
+  onlyIcon: props.onlyIcon,
 }),
 )
 
