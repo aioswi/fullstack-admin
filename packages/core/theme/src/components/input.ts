@@ -32,6 +32,7 @@ const input = tv({
       'hover:!opacity-100',
       'cursor-pointer',
       'active:!opacity-70',
+      'rounded-full',
       // focus ring
       ...dataFocusVisibleClasses,
     ],
@@ -866,5 +867,6 @@ const input = tv({
 })
 
 export type InputVariantProps = VariantProps<typeof input>
+export type InputSlots = keyof ReturnType<typeof input>
 
 export { input }

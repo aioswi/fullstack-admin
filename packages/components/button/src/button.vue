@@ -3,6 +3,7 @@ import type { PropType } from 'vue'
 import { computed, inject, ref } from 'vue'
 import { button } from '@ciaoui/theme'
 import { useElementHover, useMousePressed } from '@vueuse/core'
+import { useFocusRing } from '@ciaoui/hooks'
 import Ripple, { useRipple } from '../../ripple'
 import Spinner, { type SpinnerSizes } from '../../spinner'
 import { buttonGroupContextKey } from './constants'
@@ -60,6 +61,8 @@ const { pressed } = useMousePressed({ target: _ref })
 
 const hovered = useElementHover(_ref)
 
+const { isFocused, isFocusVisible } = useFocusRing(_ref)
+
 const _disabled = computed(() => buttonGroupContext?.disabled || props.disabled || props.loading)
 const _size = computed(() => buttonGroupContext?.size || props.size)
 const _color = computed(() => props.color ?? buttonGroupContext?.color ?? 'default')
@@ -70,23 +73,26 @@ const _rippled = computed(() => buttonGroupContext?.rippled ?? props.rippled)
 
 const isInGroup = computed(() => !!buttonGroupContext)
 
-const styles = computed(() => button({
-  size: _size.value,
-  color: _color.value,
-  variant: _variant.value,
-  radius: _radius.value,
-  disabled: _disabled.value,
-  disableAnimation: _disableAnimation.value,
-  isInGroup: isInGroup.value,
-  onlyIcon: props.onlyIcon,
-}),
-)
+const styles = computed(() => button(
+  {
+    size: _size.value,
+    color: _color.value,
+    variant: _variant.value,
+    radius: _radius.value,
+    disabled: _disabled.value,
+    disableAnimation: _disableAnimation.value,
+    isInGroup: isInGroup.value,
+    onlyIcon: props.onlyIcon,
+  },
+))
 
 const _props = computed(() => {
   const disabled = _disabled.value
   return {
     'data-pressed': pressed.value,
     'data-hover': !disabled && hovered.value,
+    'data-focus': isFocused.value,
+    'data-focus-visible': isFocusVisible.value,
     'ariaDisabled': disabled,
     'disabled': disabled,
   }

@@ -3,7 +3,8 @@ import type { PropType } from 'vue'
 import { computed, ref, useSlots, watch } from 'vue'
 import { input } from '@ciaoui/theme'
 import { isEmpty, isString } from '@ciaoui/shared-utils'
-import { useElementHover, useFocus, useFocusWithin } from '@vueuse/core'
+import { useElementHover, useFocusWithin } from '@vueuse/core'
+import { useFocusRing } from '@ciaoui/hooks'
 import { CloseFilledIcon, EyeFilledIcon, EyeSlashFilledIcon } from '../../icons'
 import type {
   InputColors,
@@ -102,10 +103,12 @@ const _ref = ref<HTMLDivElement>()
 const _innerWrapperRef = ref<HTMLDivElement>()
 const _inputWrapperRef = ref<HTMLDivElement>()
 const _inputRef = ref<HTMLInputElement>()
+const _endButtonRef = ref<HTMLButtonElement>()
 
 const hovered = useElementHover(_ref)
 
-const { focused } = useFocus(_inputRef)
+const { isFocused, isFocusVisible } = useFocusRing(_inputRef, { isTextInput: true })
+const { isFocusVisible: isClearButtonFocusVisible } = useFocusRing(_endButtonRef)
 const { focused: isFocusWithin } = useFocusWithin(_inputWrapperRef)
 
 const hasPlaceholder = computed(() => !!props.placeholder)
@@ -158,7 +161,8 @@ const _baseProps = computed(() => {
   return {
     'data-hover': !disabled && hovered.value,
     'data-has-label': !!label,
-    'data-focus': focused.value,
+    'data-focus': isFocused.value,
+    'data-focus-visible': isFocusVisible.value,
     'data-filled': isFilled.value,
     'data-filled-within': isFilledWithin.value || !!slots.prefix || hasPlaceholder.value || Boolean(inputValue.value),
     'data-invalid': isInvalid.value,
@@ -176,7 +180,8 @@ const _inputWrapperProps = computed(() => {
   return {
     'ref': _inputWrapperRef,
     'data-hover': !disabled && hovered.value,
-    'data-focus': focused.value,
+    'data-focus': isFocused.value,
+    'data-focus-visible': isFocusVisible.value,
   }
 })
 
@@ -203,8 +208,7 @@ const _endButtonProps = computed(() => {
   const id = isPasswordVisible.value ? 'pwd' : 'clear'
   return {
     'data-testid': `ciao-${id}-btn`,
-    'role': 'button',
-    'tabIndex': 0,
+    'data-focus-visible': isClearButtonFocusVisible.value,
   }
 })
 
@@ -220,36 +224,11 @@ const isLabelOutside = computed(() => {
   return labelPlacement.value === 'outside-left' || (labelPlacement.value === 'outside' && labelAlwaysFloat)
 })
 
-const styleSlots = computed(() => {
-  const {
-    variant,
-    radius,
-    size,
-    color,
-    required,
-    disabled,
-    disableAnimation,
-    labelAlwaysFloat,
-    clearable,
-    readonly,
-    password,
-  } = props
-  return input({
-    variant,
-    radius,
-    size,
-    color,
-    required,
-    disabled,
-    labelPlacement: labelPlacement.value,
-    disableAnimation,
-    labelAlwaysFloat,
-    invalid: isInvalid.value,
-    clearable,
-    readonly,
-    password,
-  })
-})
+const styleSlots = computed(() => input({
+  ...props,
+  labelPlacement: labelPlacement.value,
+  invalid: isInvalid.value,
+}))
 
 function handleFocusInput(e: MouseEvent) {
   if (_inputRef.value && e.currentTarget === e.target)
@@ -359,23 +338,26 @@ defineExpose({
             >
               {{ inputValue.length }} / {{ maxlength }}
             </span>
-            <span
+            <button
               v-if="isClearVisible"
+              ref="_endButtonRef"
               v-bind="_endButtonProps"
               :class="[styleSlots.button(), styleSlots.clearButton()]"
+              @aria-pressed="handleClear"
               @click="handleClear"
             >
               <CloseFilledIcon />
-            </span>
-            <span
+            </button>
+            <button
               v-if="isPasswordVisible"
+              ref="_endButtonRef"
               v-bind="_endButtonProps"
               :class="[styleSlots.button(), styleSlots.passwordButton()]"
               @click="togglePasswordVisible"
             >
               <EyeSlashFilledIcon v-if="passwordVisible" />
               <EyeFilledIcon v-else />
-            </span>
+            </button>
           </slot>
         </div>
       </div>

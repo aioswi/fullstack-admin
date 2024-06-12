@@ -1,12 +1,8 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "extends": "@ciaoui/tsconfig/base.json",
-  "compilerOptions": {
-    "types": ["node"]
-  },
   "include": [
-    "src/index.ts",
-    "./node_modules/@types/node/*.d.ts"
+    "src/index.ts"
   ],
   "exclude": [
     "**/*.js"

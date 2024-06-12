@@ -24,6 +24,7 @@
     "@vueuse/core": "^10.9.0"
   },
   "devDependencies": {
+    "@ciaoui/hooks": "workspace:^",
     "@ciaoui/tsconfig": "workspace:*",
     "@storybook/addon-actions": "^8.1.4",
     "@storybook/vue3": "^8.1.4",

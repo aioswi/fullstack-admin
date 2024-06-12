@@ -1,0 +1,22 @@
+{
+  "name": "@ciaoui/hooks",
+  "version": "1.0.0",
+  "description": "",
+  "author": "devswi <stayfocusjs@gmail.com>",
+  "license": "MIT",
+  "keywords": [],
+  "main": "src/index.ts",
+  "files": [
+    "dist"
+  ],
+  "peerDependencies": {
+    "vue": ">=3"
+  },
+  "dependencies": {
+    "@ciaoui/shared-utils": "workspace:^",
+    "@vueuse/core": "^10.9.0"
+  },
+  "devDependencies": {
+    "@ciaoui/tsconfig": "workspace:*"
+  }
+}

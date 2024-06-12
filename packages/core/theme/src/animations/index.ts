@@ -10,6 +10,8 @@ export const animations = {
     'ripple': 'ripple 0.5s ease-out forwards',
     'spinner-rotate': 'spinner-rotate 1.28973s linear infinite', // https://codepen.io/shiwei93/pen/NWVxmqG
     'spinner-dash': 'spinner-dash 2s ease-in-out infinite',
+    'fade-in': 'fade-in 0.4s cubic-bezier(0.36, 0.66, 0.4, 1)',
+    'fade-out': 'fade-out 0.3s cubic-bezier(0.36, 0.6, 0.4, 1)',
   },
   keyframes: {
     'shimmer': {
@@ -97,6 +99,22 @@ export const animations = {
       '100%': {
         strokeDasharray: '89, 200',
         strokeDashoffset: '-124px',
+      },
+    },
+    'fade-in': {
+      '0%': {
+        opacity: '0',
+      },
+      '100%': {
+        opacity: '1',
+      },
+    },
+    'fade-out': {
+      '0%': {
+        opacity: '1',
+      },
+      '100%': {
+        opacity: '0',
       },
     },
   },
