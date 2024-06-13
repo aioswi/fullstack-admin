@@ -163,6 +163,17 @@ export const WithoutLabel: Story = {
   },
 }
 
+export const AutoFocus: Story = {
+  render: NormalTemplate,
+  args: {
+    ...defaultProps,
+    autoFocus: true,
+    label: 'Email',
+    modelValue: '2H1hA@example.com',
+    variant: 'bordered',
+  },
+}
+
 export const DisableAnimation: Story = {
   render: NormalTemplate,
   args: {

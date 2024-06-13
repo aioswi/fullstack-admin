@@ -8,6 +8,12 @@ import { isFocusVisible, useFocusVisibleListener } from './useFocusVisible'
 
 export interface FocusRingProps {
   isTextInput?: boolean
+
+  /**
+   * Whether the element should be focused on mount.
+   * @default false
+   */
+  autoFocus?: boolean
 }
 
 export interface UseFocusRingReturn {
@@ -27,9 +33,9 @@ export interface UseFocusRingReturn {
  * @param opts.isTextInput - whether the element is a text input
  */
 export function useFocusRing(target: MaybeElementRef, opts: FocusRingProps = {}): UseFocusRingReturn {
-  const { isTextInput = false } = opts
+  const { autoFocus = false, isTextInput } = opts
 
-  const _focusVisible = ref(isFocusVisible())
+  const _focusVisible = ref(autoFocus || isFocusVisible())
 
   const { focused: isFocused } = useFocus(target)
 

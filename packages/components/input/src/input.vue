@@ -41,6 +41,10 @@ const props = defineProps({
   required: {
     type: Boolean,
   },
+  autoFocus: {
+    type: Boolean,
+    default: false,
+  },
   disabled: {
     type: Boolean,
   },
@@ -107,7 +111,7 @@ const _endButtonRef = ref<HTMLButtonElement>()
 
 const hovered = useElementHover(_ref)
 
-const { isFocused, isFocusVisible } = useFocusRing(_inputRef, { isTextInput: true })
+const { isFocused, isFocusVisible } = useFocusRing(_inputRef, { autoFocus: props.autoFocus, isTextInput: true })
 const { isFocusVisible: isClearButtonFocusVisible } = useFocusRing(_endButtonRef)
 const { focused: isFocusWithin } = useFocusWithin(_inputWrapperRef)
 
@@ -186,7 +190,7 @@ const _inputWrapperProps = computed(() => {
 })
 
 const _inputProps = computed(() => {
-  const { disabled, placeholder, readonly, required, maxlength, minlength } = props
+  const { disabled, placeholder, readonly, required, maxlength, minlength, autoFocus } = props
   return {
     'ref': _inputRef,
     disabled,
@@ -195,6 +199,7 @@ const _inputProps = computed(() => {
     required,
     minlength,
     maxlength,
+    'autofocus': autoFocus,
     'data-filled': isFilled.value,
     'data-filled-within': isFilledWithin.value,
     'data-has-prefix': !!slots.prefix,
