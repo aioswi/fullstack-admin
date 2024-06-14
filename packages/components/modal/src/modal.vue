@@ -66,6 +66,7 @@ const props = defineProps({
 
 const emit = defineEmits({
   'update:modelValue': (value: boolean) => isBoolean(value),
+  'closed': () => true,
 })
 
 const lockScroll = toRef(props, 'lockScroll')
@@ -105,6 +106,11 @@ const visible = computed({
 const disableLockScroll = computed(() => !lockScroll.value)
 
 usePreventScroll(visible, { disabled: disableLockScroll })
+
+defineExpose({
+  /**  whether the modal is visible */
+  visible,
+})
 </script>
 
 <template>
@@ -116,6 +122,7 @@ usePreventScroll(visible, { disabled: disableLockScroll })
         v-bind="_transitionProps"
         enter-active-class="data-[animated=true]:animate-fade-in"
         leave-active-class="data-[animated=true]:animate-fade-out"
+        @after-leave="emit('closed')"
       >
         <div
           v-if="visible"
@@ -133,6 +140,7 @@ usePreventScroll(visible, { disabled: disableLockScroll })
         <div
           v-if="visible"
           :class="styleSlots.wrapper()"
+          :tabindex="-1"
           data-slot="wrapper"
           @keydown.esc="() => (dismissBehavior === 'escape' || dismissBehavior === 'all') && (visible = false)"
           @click.self="() => (dismissBehavior === 'click' || dismissBehavior === 'all') && (visible = false)"
@@ -147,25 +155,25 @@ usePreventScroll(visible, { disabled: disableLockScroll })
             >
               <CloseIcon />
             </button>
-            <slot name="header">
-              <header :class="styleSlots.header()">
-                <slot name="title">
-                  {{ title }}
-                </slot>
-              </header>
-            </slot>
             <slot>
+              <slot name="header">
+                <header :class="styleSlots.header()">
+                  <slot name="title">
+                    {{ title }}
+                  </slot>
+                </header>
+              </slot>
               <div
                 v-if="$slots.body"
                 :class="styleSlots.body()"
               >
                 <slot name="body" />
               </div>
-            </slot>
-            <slot name="footer">
-              <footer v-if="$slots.actions" :class="styleSlots.footer()">
-                <slot name="actions" />
-              </footer>
+              <slot name="footer">
+                <footer v-if="$slots.actions" :class="styleSlots.footer()">
+                  <slot name="actions" />
+                </footer>
+              </slot>
             </slot>
           </section>
         </div>

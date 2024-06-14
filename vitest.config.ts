@@ -18,6 +18,7 @@ export default defineProject({
         '**/*.config.ts',
         '**/*.workspace.ts',
         '**/.nuxt',
+        '**/stories/*',
         'packages/storybook',
       ],
     },

@@ -43,14 +43,6 @@ const FOCUS_VISIBLE_INPUT_KEYS: Record<string, boolean> = {
   Escape: true,
 }
 
-export interface UseFocusRingReturn {
-  /** Whether the element is currently focused. */
-  isFocused: Ref<boolean>
-
-  /** Whether keyboard focus should be visible. */
-  isFocusVisible: Ref<boolean>
-}
-
 interface GlobalListenerData {
   focus: () => void
 }
