@@ -12,6 +12,8 @@ export const animations = {
     'spinner-dash': 'spinner-dash 2s ease-in-out infinite',
     'fade-in': 'fade-in 0.4s cubic-bezier(0.36, 0.66, 0.4, 1)',
     'fade-out': 'fade-out 0.3s cubic-bezier(0.36, 0.6, 0.4, 1)',
+    'modal-enter': 'modal-enter 0.4s cubic-bezier(0.16, 1.11, 0.3, 1)',
+    'modal-exit': 'modal-exit 0.3s cubic-bezier(0.36, 0.66, 0.4, 1)',
   },
   keyframes: {
     'shimmer': {
@@ -115,6 +117,26 @@ export const animations = {
       },
       '100%': {
         opacity: '0',
+      },
+    },
+    'modal-enter': {
+      '0%': {
+        opacity: '0',
+        transform: 'scale(var(--scale-exit)) translateY(var(--slide-exit))',
+      },
+      '100%': {
+        opacity: '1',
+        transform: 'scale(var(--scale-enter)) translateY(var(--slide-enter))',
+      },
+    },
+    'modal-exit': {
+      '0%': {
+        opacity: '1',
+        transform: 'scale(var(--scale-enter)) translateY(var(--slide-enter))',
+      },
+      '100%': {
+        opacity: '0',
+        transform: 'scale(var(--scale-exit)) translateY(var(--slide-exit))',
       },
     },
   },

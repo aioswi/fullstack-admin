@@ -37,7 +37,9 @@ export function useFocusRing(target: MaybeElementRef, opts: FocusRingProps = {})
 
   const _focusVisible = ref(autoFocus || isFocusVisible())
 
-  const { focused: isFocused } = useFocus(target)
+  const { focused: isFocused } = useFocus(target, {
+    initialValue: autoFocus,
+  })
 
   const focusVisible = computed(() => {
     return isFocused.value && _focusVisible.value

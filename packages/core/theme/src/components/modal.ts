@@ -146,6 +146,22 @@ const modal = tv({
         base: 'my-16',
       },
     },
+    disableAnimation: {
+      false: {
+        wrapper: [
+          //  mobile animation vars
+          '[--scale-enter:100%]',
+          '[--scale-exit:100%]',
+          '[--slide-enter:0px]',
+          '[--slide-exit:80px]',
+          // tablet/desktop animation vars
+          'sm:[--scale-enter:100%]',
+          'sm:[--scale-exit:103%]',
+          'sm:[--slide-enter:0px]',
+          'sm:[--slide-exit:0px]',
+        ],
+      },
+    },
   },
   defaultVariants: {
     size: 'md',
@@ -154,6 +170,7 @@ const modal = tv({
     placement: 'auto',
     backdrop: 'opaque',
     scrollBehavior: 'normal',
+    disableAnimation: false,
   },
   compoundVariants: [
     {

@@ -3,8 +3,7 @@ import type { PropType } from 'vue'
 import { computed, ref, useSlots, watch } from 'vue'
 import { input } from '@ciaoui/theme'
 import { isEmpty, isString } from '@ciaoui/shared-utils'
-import { useElementHover, useFocusWithin } from '@vueuse/core'
-import { useFocusRing } from '@ciaoui/hooks'
+import { useElementHover, useFocus, useFocusWithin } from '@vueuse/core'
 import { CloseFilledIcon, EyeFilledIcon, EyeSlashFilledIcon } from '../../icons'
 import type {
   InputColors,
@@ -111,8 +110,10 @@ const _endButtonRef = ref<HTMLButtonElement>()
 
 const hovered = useElementHover(_ref)
 
-const { isFocused, isFocusVisible } = useFocusRing(_inputRef, { autoFocus: props.autoFocus, isTextInput: true })
-const { isFocusVisible: isClearButtonFocusVisible } = useFocusRing(_endButtonRef)
+const { focused: isFocused } = useFocus(_inputRef, { initialValue: props.autoFocus })
+const { focused: isFocusVisible } = useFocus(_inputRef, { initialValue: props.autoFocus, focusVisible: true })
+
+const { focused: isClearButtonFocusVisible } = useFocus(_endButtonRef, { focusVisible: true })
 const { focused: isFocusWithin } = useFocusWithin(_inputWrapperRef)
 
 const hasPlaceholder = computed(() => !!props.placeholder)
@@ -190,7 +191,7 @@ const _inputWrapperProps = computed(() => {
 })
 
 const _inputProps = computed(() => {
-  const { disabled, placeholder, readonly, required, maxlength, minlength, autoFocus } = props
+  const { disabled, placeholder, readonly, required, maxlength, minlength } = props
   return {
     'ref': _inputRef,
     disabled,
@@ -199,7 +200,6 @@ const _inputProps = computed(() => {
     required,
     minlength,
     maxlength,
-    'autofocus': autoFocus,
     'data-filled': isFilled.value,
     'data-filled-within': isFilledWithin.value,
     'data-has-prefix': !!slots.prefix,
@@ -273,6 +273,7 @@ function focus() {
 
 function clear() {
   inputValue.value = ''
+
   emit('update:modelValue', '')
   emit('change', '')
   emit('clear')
